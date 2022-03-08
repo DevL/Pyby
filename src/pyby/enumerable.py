@@ -10,6 +10,11 @@ class Enumerable(RObject):
         """
         raise NotImplementedError("'each' must be implemented by a subclass")
 
+    def compact(self):
+        return self._return_type()(
+            (item for item in self.each() if _to_tuple(item)[-1] is not None)
+        )
+
     def first(self, number=None):
         if number is None:
             return next(self.each(), None)

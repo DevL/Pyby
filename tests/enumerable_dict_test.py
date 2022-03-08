@@ -62,6 +62,27 @@ def test_first_when_empty_when_asked_for_a_number_of_elements():
     assert result == []
 
 
+def test_compact():
+    enumerable_dict = EnumerableDict(a=1, b=2, c=3, d=None)
+    result = enumerable_dict.compact()
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2), ("c", 3)]
+
+
+def test_compact_when_empty():
+    enumerable_dict = EnumerableDict()
+    result = enumerable_dict.compact()
+    assert isinstance(result, EnumerableList)
+    assert result == []
+
+
+def test_compact_when_not_containing_any_None_values():
+    enumerable_dict = EnumerableDict(a=1, b=2, c=3)
+    result = enumerable_dict.compact()
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2), ("c", 3)]
+
+
 class Seen(UserList):
     def __bool__(self):
         return True
