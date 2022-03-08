@@ -22,6 +22,8 @@ class Enumerable(RObject):
         else:
             return self.each()
 
+    collect = map
+
     def _return_type(self):
         raise NotImplementedError("'_return_type' must be implemented by a subclass")
 

@@ -24,7 +24,9 @@ whereas for mappings this will be same as iterating over the items.
 
 - [x] collect/map
 - [ ] compact
-- [ ] count (no args, non-callable arg, and callable arg)
+- [ ] count (no args)
+- [ ] count (non-callable arg)
+- [ ] count (callable arg)
 - [ ] find
 - [x] first (no args)
 - [x] first (n elements)
