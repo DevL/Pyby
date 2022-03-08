@@ -9,3 +9,9 @@ class EnumerableList(Enumerable, UserList):
                 func(item)
         else:
             return iter(self)
+
+    def map(self, func=None):
+        if func:
+            return EnumerableList(func(item) for item in self.each())
+        else:
+            return iter(self)
