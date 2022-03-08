@@ -10,8 +10,5 @@ class EnumerableList(Enumerable, UserList):
         else:
             return iter(self)
 
-    def map(self, func=None):
-        if func:
-            return EnumerableList(func(item) for item in self.each())
-        else:
-            return iter(self)
+    def _return_type(self):
+        return __class__

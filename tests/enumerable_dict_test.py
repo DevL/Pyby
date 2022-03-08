@@ -24,13 +24,6 @@ def test_map_with_a_function_calls_it_once_for_each_item_and_returns_an_enumerab
     assert result == [("A", 2), ("B", 3), ("C", 4)]
 
 
-def test_map_with_a_function_handles_arity_one_functions():
-    enumerable_dict = EnumerableDict(a=1, b=2, c=3)
-    result = enumerable_dict.map(lambda key_value_pair: key_value_pair[1] * 2)
-    assert isinstance(result, EnumerableList)
-    assert result == [2, 4, 6]
-
-
 def test_map_without_a_function_yields_each_item():
     enumerable_dict = EnumerableDict(a=1, b=2, c=3)
     enumerator = enumerable_dict.map()
