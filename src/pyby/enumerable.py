@@ -11,7 +11,7 @@ class Enumerable(RObject):
         raise NotImplementedError("'each' must be implemented by a subclass")
 
     def compact(self):
-        return self._return_type()(
+        return self._as_enumerable(
             (item for item in self.each() if _to_tuple(item)[-1] is not None)
         )
 
@@ -19,15 +19,18 @@ class Enumerable(RObject):
         if number is None:
             return next(self.each(), None)
         else:
-            return self._return_type()(islice(self.each(), number))
+            return self._as_enumerable(islice(self.each(), number))
 
     def map(self, func=None):
         if func:
-            return self._return_type()(func(*_to_tuple(item)) for item in self.each())
+            return self._as_enumerable(func(*_to_tuple(item)) for item in self.each())
         else:
             return self.each()
 
     collect = map
+
+    def _as_enumerable(self, iterable):
+        return self._return_type()(iterable)
 
     def _return_type(self):
         raise NotImplementedError("'_return_type' must be implemented by a subclass")
