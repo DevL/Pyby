@@ -36,7 +36,7 @@ Also available as the alias `collect`.
 # Candidates
 
 - [x] collect/map
-- [ ] compact
+- [x] compact
 - [ ] count (no args)
 - [ ] count (non-callable arg)
 - [ ] count (callable arg)
