@@ -36,9 +36,30 @@ def test_first():
     assert enumerable_dict.first() == ("a", 1)
 
 
+def test_first_with_number_of_elements_specified():
+    enumerable_dict = EnumerableDict(a=1, b=2, c=3)
+    result = enumerable_dict.first(2)
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2)]
+
+
+def test_first_with_fewer_elements_than_asked_for():
+    enumerable_dict = EnumerableDict(a=1, b=2, c=3)
+    result = enumerable_dict.first(5)
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2), ("c", 3)]
+
+
 def test_first_when_empty():
     enumerable_dict = EnumerableDict()
     assert enumerable_dict.first() is None
+
+
+def test_first_when_empty_when_asked_for_a_number_of_elements():
+    enumerable_dict = EnumerableDict()
+    result = enumerable_dict.first(5)
+    assert isinstance(result, EnumerableList)
+    assert result == []
 
 
 class Seen(UserList):

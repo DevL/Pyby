@@ -1,3 +1,4 @@
+from itertools import islice
 from .object import RObject
 
 
@@ -9,8 +10,11 @@ class Enumerable(RObject):
         """
         raise NotImplementedError("'each' must be implemented by a subclass")
 
-    def first(self):
-        return next(self.each(), None)
+    def first(self, elements=None):
+        if elements is None:
+            return next(self.each(), None)
+        else:
+            return self._return_type()(islice(self.each(), elements))
 
     def map(self, func=None):
         if func:

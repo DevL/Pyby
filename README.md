@@ -26,7 +26,8 @@ whereas for mappings this will be same as iterating over the items.
 - [ ] compact
 - [ ] count (no args, non-callable arg, and callable arg)
 - [ ] find
-- [x] first
+- [x] first (no args)
+- [x] first (n elements)
 - [ ] inject/reduce
 - [ ] reject
 - [ ] select/filter

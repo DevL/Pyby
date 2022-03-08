@@ -38,3 +38,24 @@ def test_first():
 def test_first_when_empty():
     enumerable_list = EnumerableList()
     assert enumerable_list.first() is None
+
+
+def test_first_with_number_of_elements_specified():
+    enumerable_list = EnumerableList(["a", "b", "c"])
+    result = enumerable_list.first(2)
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", "b"]
+
+
+def test_first_with_fewer_elements_than_asked_for():
+    enumerable_list = EnumerableList(["a", "b", "c"])
+    result = enumerable_list.first(5)
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", "b", "c"]
+
+
+def test_first_when_empty_when_asked_for_a_number_of_elements():
+    enumerable_list = EnumerableList()
+    result = enumerable_list.first(5)
+    assert isinstance(result, EnumerableList)
+    assert result == []
