@@ -1,3 +1,8 @@
+class RObject:
+    def respond_to(self, name):
+        return respond_to(self, name)
+
+
 def respond_to(obj, name):
     """
     Returns True if the object has a callable property with the given name.
