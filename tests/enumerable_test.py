@@ -7,5 +7,9 @@ def test_each_must_be_implemented_by_a_subclass():
         Enumerable().each(_identity)
 
 
+def test_an_enumerable_behaves_like_a_robject():
+    assert Enumerable().respond_to("each") is True
+
+
 def _identity(obj):
     return obj
