@@ -13,9 +13,9 @@ class EnumerableDict(Enumerable, UserDict):
 
 
 def test_each_with_a_function_calls_it_once_for_each_item():
-    seen = []
+    seen = Seen()
     enumerable_dict = EnumerableDict(a=1, b=2, c=3)
-    enumerable_dict.each(lambda key_value_pair: seen.append(key_value_pair))
+    enumerable_dict.each(seen)
     assert seen == [("a", 1), ("b", 2), ("c", 3)]
 
 
@@ -24,3 +24,11 @@ def test_each_without_a_function_yields_each_item():
     enumerator = enumerable_dict.each()
     assert isgenerator(enumerator)
     assert list(enumerator) == [("a", 1), ("b", 2), ("c", 3)]
+
+
+class Seen(UserList):
+    def __bool__(self):
+        return True
+
+    def __call__(self, element):
+        self.data.append(element)
