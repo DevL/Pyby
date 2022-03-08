@@ -10,11 +10,11 @@ class Enumerable(RObject):
         """
         raise NotImplementedError("'each' must be implemented by a subclass")
 
-    def first(self, elements=None):
-        if elements is None:
+    def first(self, number=None):
+        if number is None:
             return next(self.each(), None)
         else:
-            return self._return_type()(islice(self.each(), elements))
+            return self._return_type()(islice(self.each(), number))
 
     def map(self, func=None):
         if func:
