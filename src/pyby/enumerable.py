@@ -9,6 +9,9 @@ class Enumerable(RObject):
         """
         raise NotImplementedError("'each' must be implemented by a subclass")
 
+    def first(self):
+        return next(self.each(), None)
+
     def map(self, func=None):
         if func:
             return self._return_type()(func(*_to_tuple(item)) for item in self.each())

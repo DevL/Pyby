@@ -22,11 +22,11 @@ whereas for mappings this will be same as iterating over the items.
 
 # Candidates
 
-* collect/map
-* compact
-* count (no args, non-callable arg, and callable arg)
-* find
-* first
-* inject/reduce
-* reject
-* select/filter
+- [x] collect/map
+- [ ] compact
+- [ ] count (no args, non-callable arg, and callable arg)
+- [ ] find
+- [x] first
+- [ ] inject/reduce
+- [ ] reject
+- [ ] select/filter

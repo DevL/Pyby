@@ -31,6 +31,16 @@ def test_map_without_a_function_yields_each_item():
     assert list(enumerator) == [("a", 1), ("b", 2), ("c", 3)]
 
 
+def test_first():
+    enumerable_dict = EnumerableDict(a=1, b=2, c=3)
+    assert enumerable_dict.first() == ("a", 1)
+
+
+def test_first_when_empty():
+    enumerable_dict = EnumerableDict()
+    assert enumerable_dict.first() is None
+
+
 class Seen(UserList):
     def __bool__(self):
         return True

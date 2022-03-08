@@ -28,3 +28,13 @@ def test_map_without_a_function_yields_each_item():
     enumerator = enumerable_list.map()
     assert isgenerator(enumerator)
     assert list(enumerator) == ["a", "b", "c"]
+
+
+def test_first():
+    enumerable_list = EnumerableList([1, 2, 3])
+    assert enumerable_list.first() == 1
+
+
+def test_first_when_empty():
+    enumerable_list = EnumerableList()
+    assert enumerable_list.first() is None
