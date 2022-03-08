@@ -1,15 +1,6 @@
-from collections import UserDict, UserList
+from collections import UserList
 from inspect import isgenerator
-from pyby import Enumerable
-
-
-class EnumerableDict(Enumerable, UserDict):
-    def each(self, func=None):
-        if func:
-            for item in self.items():
-                func(item)
-        else:
-            return iter(self.items())
+from pyby import EnumerableDict
 
 
 def test_each_with_a_function_calls_it_once_for_each_item():

@@ -1,15 +1,5 @@
-from collections import UserList
 from inspect import isgenerator
-from pyby import Enumerable
-
-
-class EnumerableList(Enumerable, UserList):
-    def each(self, func=None):
-        if func:
-            for item in self:
-                func(item)
-        else:
-            return iter(self)
+from pyby import EnumerableList
 
 
 def test_each_with_a_function_calls_it_once_for_each_item():
