@@ -7,7 +7,7 @@ class Enumerable(RObject):
     def as_enum(func):
         @wraps(func)
         def wrapper(self, *args, **kwargs):
-            into = self._return_type()
+            into = self._return_type_for(func.__name__)
             result = func(self, *args, into=into, **kwargs)
             return result
 
@@ -54,12 +54,12 @@ class Enumerable(RObject):
 
     collect = map
 
-    def _return_type(self):
+    def _return_type_for(self, method_name):
         """
-        Returns a constructor that accepts an iterable.
+        Returns a constructor that accepts an iterable for the given method name.
         Must be implemented by a subclass.
         """
-        raise NotImplementedError("'_return_type' must be implemented by a subclass")
+        raise NotImplementedError("'_return_type_for' must be implemented by a subclass")
 
 
 def _to_tuple(item):

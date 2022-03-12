@@ -10,5 +10,5 @@ class EnumerableList(Enumerable, UserList):
         else:
             return iter(self)
 
-    def _return_type(self):
+    def _return_type_for(self, method_name):
         return __class__

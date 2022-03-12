@@ -11,5 +11,5 @@ class EnumerableDict(Enumerable, UserDict):
         else:
             return iter(self.items())
 
-    def _return_type(self):
+    def _return_type_for(self, method_name):
         return EnumerableList
