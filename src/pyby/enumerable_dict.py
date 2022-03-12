@@ -12,4 +12,4 @@ class EnumerableDict(Enumerable, UserDict):
             return iter(self.items())
 
     def _return_type_for(self, method_name):
-        return EnumerableList
+        return {"compact": self.__class__}.get(method_name, EnumerableList)
