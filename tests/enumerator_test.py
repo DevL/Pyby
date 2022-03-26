@@ -22,3 +22,18 @@ def test_an_enumerated_list_can_be_rewound():
     assert enum.next() == 2
     enum.rewind()
     assert enum.next() == 1
+
+
+def test_an_enumerated_dict_can_be_iterated():
+    enum = Enumerator({"a": 1, "b": 2, "c": 3})
+    assert enum.next() == "a"
+    assert enum.next() == "b"
+    assert enum.next() == "c"
+
+
+def test_an_enumerated_dict_can_be_rewound():
+    enum = Enumerator({"a": 1, "b": 2, "c": 3})
+    assert enum.next() == "a"
+    assert enum.next() == "b"
+    enum.rewind()
+    assert enum.next() == "a"
