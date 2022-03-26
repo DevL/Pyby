@@ -14,7 +14,7 @@ class Enumerator(RObject):
         return f"{self.__class__.__name__}({self.iterable})"
 
     def next(self):
-        return self.enumeration.__next__()
+        return next(self.enumeration)
 
     def rewind(self):
         self.enumeration = iter(self.iterable)
