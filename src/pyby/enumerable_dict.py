@@ -4,6 +4,10 @@ from .enumerable_list import EnumerableList
 
 
 class EnumerableDict(Enumerable, UserDict):
+    """
+    A dict behaving like an Enumerable.
+    """
+
     def each(self, func=None):
         if func:
             for item in self.items():

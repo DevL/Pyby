@@ -4,7 +4,16 @@ from .object import RObject
 
 
 class Enumerable(RObject):
+    """
+    Base class for collection classes mimicing some of Ruby's Enumerable module.
+    """
+
     def as_enum(func):
+        """
+        Decorator enabling the return type of a method to be configured by the
+        collection class inheriting from Enumerable.
+        """
+
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             into = self._return_type_for(func.__name__)
@@ -52,7 +61,7 @@ class Enumerable(RObject):
         else:
             return self.each()
 
-    collect = map
+    collect = map  # Alias for the map method
 
     def _return_type_for(self, method_name):
         """

@@ -2,6 +2,10 @@ from .object import RObject
 
 
 class Enumerator(RObject):
+    """
+    A class which allows both internal and external iteration.
+    """
+
     def __init__(self, iterable):
         self.iterable = iterable
         self.enumeration = iter(iterable)

@@ -3,6 +3,10 @@ from .enumerable import Enumerable
 
 
 class EnumerableList(Enumerable, UserList):
+    """
+    A list behaving like an Enumerable.
+    """
+
     def each(self, func=None):
         if func:
             for item in self:
