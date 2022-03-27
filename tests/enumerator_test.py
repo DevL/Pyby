@@ -1,5 +1,5 @@
 import pytest
-from pyby import Enumerator, Enumerable
+from pyby import Enumerator, Enumerable, EnumerableDict
 
 
 @pytest.fixture
@@ -73,3 +73,10 @@ def test_each_without_a_function_returns_a_new_enumerator(enumerated_list):
 def test_each_can_be_chained(enumerated_list):
     result = enumerated_list.each().each().each().map(lambda value: value * 2)
     assert result == [2, 4, 6]
+
+
+@pytest.mark.focus
+def test_the_return_type_of_an_enumerable_iterable_is_used():
+    enum = Enumerator(EnumerableDict({"a": 1, "b": None, "c": 3}))
+    result = enum.compact()
+    assert result == {"a": 1, "c": 3}
