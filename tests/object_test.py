@@ -1,4 +1,4 @@
-from pyby import RObject
+from pyby import respond_to, RObject
 
 
 class SomeObject(RObject):
@@ -15,15 +15,19 @@ OBJECT = SomeObject()
 
 def test_respond_to_with_a_callable_property():
     assert OBJECT.respond_to("a_lambda") is True
+    assert respond_to(OBJECT, "a_lambda") is True
 
 
 def test_respond_to_with_a_method():
     assert OBJECT.respond_to("a_method") is True
+    assert respond_to(OBJECT, "a_method") is True
 
 
 def test_respond_to_with_a_non_callable_property():
     assert OBJECT.respond_to("a_number") is False
+    assert respond_to(OBJECT, "a_number") is False
 
 
 def test_respond_to_with_a_missing_property():
     assert OBJECT.respond_to("missing") is False
+    assert respond_to(OBJECT, "missing") is False

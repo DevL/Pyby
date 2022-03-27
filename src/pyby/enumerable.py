@@ -1,5 +1,5 @@
-from itertools import islice
 from functools import wraps
+from itertools import islice
 from .object import RObject
 
 
