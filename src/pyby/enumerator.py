@@ -18,3 +18,4 @@ class Enumerator(RObject):
 
     def rewind(self):
         self.enumeration = iter(self.iterable)
+        return self
