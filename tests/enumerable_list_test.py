@@ -66,6 +66,24 @@ def test_first_when_empty_when_asked_for_a_number_of_elements(empty_list):
     assert result == []
 
 
+def test_take(letters):
+    result = letters.take(2)
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", "b"]
+
+
+def test_take_with_fewer_elements_than_asked_for(letters):
+    result = letters.take(5)
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", "b", "c"]
+
+
+def test_take_when_empty(empty_list):
+    result = empty_list.take(5)
+    assert isinstance(result, EnumerableList)
+    assert result == []
+
+
 def test_compact():
     enumerable_list = EnumerableList([None, "a", None, "b", "c", None])
     result = enumerable_list.compact()

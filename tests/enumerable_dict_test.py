@@ -61,6 +61,24 @@ def test_first_when_empty_when_asked_for_a_number_of_elements(empty_dict):
     assert result == []
 
 
+def test_take(enumerable_dict):
+    result = enumerable_dict.take(2)
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2)]
+
+
+def test_take_with_fewer_elements_than_asked_for(enumerable_dict):
+    result = enumerable_dict.take(5)
+    assert isinstance(result, EnumerableList)
+    assert result == [("a", 1), ("b", 2), ("c", 3)]
+
+
+def test_take_when_empty(empty_dict):
+    result = empty_dict.take(5)
+    assert isinstance(result, EnumerableList)
+    assert result == []
+
+
 def test_compact():
     enumerable_dict = EnumerableDict(a=1, b=2, c=3, d=None)
     result = enumerable_dict.compact()

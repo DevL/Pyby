@@ -55,12 +55,16 @@ Returns an enumerable of the elements with None values removed.
 
 Returns the first element or a given number of elements.
 With no argument, returns the first element, or `None` if there is none.
-With an number of elements requested, returns as many elements as possible.
+With a number of elements requested, returns as many elements as possible.
 
 ### [`collect`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-collect), [`map`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-map)
 
 Returns the result of mapping a function over the elements.
 The mapping function takes a single argument for sequences and two arguments for mappings.
+
+### [`take`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-take)
+
+Returns the number of elements requested or as many elements as possible.
 
 ### [`to_enum`](https://ruby-doc.org/core-3.1.1/Object.html#method-i-to_enum)
 
@@ -99,4 +103,14 @@ Note that this may not be possible to do for underlying iterables that can be ex
 - [ ] inject/reduce
 - [ ] reject
 - [ ] select/filter
-- [ ] uniq
+- [x] take
+- [ ] uniq (no args)
+- [ ] uniq (predicate to determine uniqueness)
+
+---
+
+# Enumerator Candidates
+
+- [x] next
+- [ ] peek
+- [x] rewind

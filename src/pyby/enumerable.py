@@ -67,6 +67,12 @@ class Enumerable(RObject):
 
     collect = map  # Alias for the map method
 
+    def take(self, number):
+        """
+        Returns the number of elements requested or as many elements as possible.
+        """
+        return self.first(number)
+
     def to_enum(self):
         """
         Returns an enumerator for the enumerable.
