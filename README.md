@@ -106,6 +106,8 @@ _Note that this may not be possible to do for underlying iterables that can be e
 - [ ] find
 - [x] first (no args)
 - [x] first (n elements)
+- [ ] flat_map / collect_concat (no args)
+- [ ] flat_map / collect_concat (callable arg)
 - [ ] inject/reduce
 - [ ] reject
 - [ ] select/filter

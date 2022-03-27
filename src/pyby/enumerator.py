@@ -14,13 +14,6 @@ class Enumerator(Enumerable):
         self.enumeration = iter(iterable)
         self.head = NO_HEAD
 
-    def each(self, func=None):
-        if func:
-            for item in self.__each__():
-                func(item)
-        else:
-            return self.to_enum()
-
     def next(self):
         """
         Returns the next object in the enumeration sequence.
