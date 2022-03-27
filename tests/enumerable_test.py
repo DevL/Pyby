@@ -2,23 +2,31 @@ import pytest
 from pyby import Enumerable
 
 
-def test_each_with_function_requires___each___to_be_implemented_by_a_subclass():
+@pytest.fixture
+def enumerable():
+    return Enumerable()
+
+
+@pytest.mark.parametrize("method_name", ["each", "compact", "first", "map", "take", "to_enum"])
+def test_public_interface(enumerable, method_name):
+    assert enumerable.respond_to(method_name)
+
+
+@pytest.mark.parametrize("alias, method_name", [("collect", "map")])
+def test_aliases(enumerable, alias, method_name):
+    assert getattr(enumerable, alias) == getattr(enumerable, method_name)
+
+
+def test_each_with_function_requires___each___to_be_implemented_by_a_subclass(enumerable):
     with pytest.raises(NotImplementedError, match="'__each__' must be implemented by a subclass"):
-        Enumerable().each(lambda x: x)
+        enumerable.each(lambda x: x)
 
 
-def test_each_without_a_function_requires_to_enum_to_be_implemented_by_a_subclass():
+def test_each_without_a_function_requires_to_enum_to_be_implemented_by_a_subclass(enumerable):
     with pytest.raises(NotImplementedError, match="'to_enum' must be implemented by a subclass"):
-        Enumerable().each()
+        enumerable.each()
 
 
-def test_an_enumerable_responds_to_each():
-    assert Enumerable().respond_to("each")
-
-
-def test_an_enumerable_responds_to_to_enum():
-    assert Enumerable().respond_to("to_enum")
-
-
-def test_collect_is_an_alias_to_map():
-    assert Enumerable.collect == Enumerable.map
+def test_requires___into___to_be_implemented_by_a_subclass(enumerable):
+    with pytest.raises(NotImplementedError, match="'__into__' must be implemented by a subclass"):
+        enumerable.first(1)
