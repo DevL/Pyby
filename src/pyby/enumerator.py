@@ -17,12 +17,6 @@ class Enumerator(Enumerable):
         else:
             return self.to_enum()
 
-    def __each__(self):
-        return iter(self.iterable)
-
-    def to_enum(self):
-        return self.__class__(self.iterable)
-
     def next(self):
         """
         Returns the next object in the enumeration sequence.
@@ -37,6 +31,12 @@ class Enumerator(Enumerable):
         """
         self.enumeration = iter(self.iterable)
         return self
+
+    def to_enum(self):
+        return self.__class__(self.iterable)
+
+    def __each__(self):
+        return iter(self.iterable)
 
     def __into__(self, method_name):
         return EnumerableList
