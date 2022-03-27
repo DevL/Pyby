@@ -12,10 +12,16 @@ class Enumerator(Enumerable):
 
     def each(self, func=None):
         if func:
-            for item in self.iterable:
+            for item in self.__each__():
                 func(item)
         else:
-            return self.__class__(self.iterable)
+            return self.to_enum()
+
+    def __each__(self):
+        return iter(self.iterable)
+
+    def to_enum(self):
+        return self.__class__(self.iterable)
 
     def next(self):
         """

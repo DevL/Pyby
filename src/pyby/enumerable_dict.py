@@ -10,10 +10,16 @@ class EnumerableDict(Enumerable, UserDict):
 
     def each(self, func=None):
         if func:
-            for item in self.items():
+            for item in self.__each__():
                 func(item)
         else:
-            return iter(self.items())
+            return self.to_enum()
+
+    def to_enum(self):
+        return self.__each__()
+
+    def __each__(self):
+        return iter(self.items())
 
     def __into__(self, method_name):
         return {"compact": __class__}.get(method_name, EnumerableList)

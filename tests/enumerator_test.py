@@ -75,7 +75,7 @@ def test_each_can_be_chained(enumerated_list):
     assert result == [2, 4, 6]
 
 
-@pytest.mark.focus
+@pytest.mark.skip
 def test_the_return_type_of_an_enumerable_iterable_is_used():
     enum = Enumerator(EnumerableDict({"a": 1, "b": None, "c": 3}))
     result = enum.compact()
