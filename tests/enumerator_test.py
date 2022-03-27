@@ -50,16 +50,14 @@ def test_an_enumerator_is_an_enumerable(enumerated_list):
     assert isinstance(enumerated_list, Enumerable)
 
 
-def test_an_enumerator_is_enumerable(enumerated_list):
-    seen = []
-    enumerated_list.each(lambda value: seen.append(value))
+def test_an_enumerator_is_enumerable(enumerated_list, seen):
+    enumerated_list.each(seen)
     assert seen == [1, 2, 3]
 
 
-def test_enumerating_an_enumerator_is_not_affected_by_invoking_next(enumerated_list):
+def test_enumerating_an_enumerator_is_not_affected_by_invoking_next(enumerated_list, seen):
     assert enumerated_list.next() == 1
-    seen = []
-    enumerated_list.each(lambda value: seen.append(value))
+    enumerated_list.each(seen)
     assert seen == [1, 2, 3]
     assert enumerated_list.next() == 2
 
@@ -75,8 +73,13 @@ def test_each_can_be_chained(enumerated_list):
     assert result == [2, 4, 6]
 
 
-@pytest.mark.skip
 def test_the_return_type_of_an_enumerable_iterable_is_used():
-    enum = Enumerator(EnumerableDict({"a": 1, "b": None, "c": 3}))
+    enum = Enumerator(EnumerableDict({"a": 1, "b": None, "c": 3, None: 4}))
     result = enum.compact()
-    assert result == {"a": 1, "c": 3}
+    assert result == {"a": 1, "c": 3, None: 4}
+
+
+def test_the_return_type_defaults_to_a_list_for_normal_iterables():
+    enum = Enumerator({"a": 1, "b": None, "c": 3, None: 4})
+    result = enum.compact()
+    assert result == ["a", "b", "c"]

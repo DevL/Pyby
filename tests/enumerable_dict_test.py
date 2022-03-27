@@ -1,7 +1,5 @@
 import pytest
-from inspect import isgenerator
-from pyby import EnumerableDict, EnumerableList
-from .test_utils import Seen
+from pyby import EnumerableDict, EnumerableList, Enumerator
 
 
 @pytest.fixture
@@ -14,16 +12,15 @@ def empty_dict():
     return EnumerableDict()
 
 
-def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict):
-    seen = Seen()
+def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen):
     enumerable_dict.each(seen)
     assert seen == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_each_without_a_function_yields_each_item(enumerable_dict):
     enumerator = enumerable_dict.each()
-    assert isgenerator(enumerator)
-    assert list(enumerator) == [("a", 1), ("b", 2), ("c", 3)]
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
@@ -34,8 +31,8 @@ def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
 
 def test_map_without_a_function_yields_each_item(enumerable_dict):
     enumerator = enumerable_dict.map()
-    assert isgenerator(enumerator)
-    assert list(enumerator) == [("a", 1), ("b", 2), ("c", 3)]
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_first(enumerable_dict):

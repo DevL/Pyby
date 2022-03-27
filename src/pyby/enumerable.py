@@ -38,7 +38,7 @@ class Enumerable(RObject):
         """
         Returns an enumerable of the elements with None values removed.
         """
-        return into(item for item in self.each() if _to_tuple(item)[-1] is not None)
+        return into(item for item in self.__each__() if _to_tuple(item)[-1] is not None)
 
     @as_enum
     def first(self, number=None, into=None):
@@ -48,9 +48,9 @@ class Enumerable(RObject):
         With an number of elements requested, returns as many elements as possible.
         """
         if number is None:
-            return next(self.each(), None)
+            return next(self.__each__(), None)
         else:
-            return into(islice(self.each(), number))
+            return into(islice(self.__each__(), number))
 
     @as_enum
     def map(self, func=None, into=None):
@@ -61,9 +61,9 @@ class Enumerable(RObject):
         Also available as the alias `collect`.
         """
         if func:
-            return into(func(*_to_tuple(item)) for item in self.each())
+            return into(func(*_to_tuple(item)) for item in self.__each__())
         else:
-            return self.each()
+            return self.to_enum()
 
     collect = map  # Alias for the map method
 

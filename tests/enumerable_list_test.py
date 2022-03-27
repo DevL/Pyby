@@ -1,7 +1,5 @@
 import pytest
-from inspect import isgenerator
-from pyby import EnumerableList
-from .test_utils import Seen
+from pyby import EnumerableList, Enumerator
 
 
 @pytest.fixture
@@ -19,16 +17,15 @@ def numbers():
     return EnumerableList([1, 2, 3])
 
 
-def test_each_with_a_function_calls_it_once_for_each_item(letters):
-    seen = Seen()
+def test_each_with_a_function_calls_it_once_for_each_item(letters, seen):
     letters.each(seen)
     assert seen == ["a", "b", "c"]
 
 
 def test_each_without_a_function_yields_each_item(letters):
     enumerator = letters.each()
-    assert isgenerator(enumerator)
-    assert list(enumerator) == ["a", "b", "c"]
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x: x) == ["a", "b", "c"]
 
 
 def test_map_with_a_function_calls_it_ince_for_each_item_and_returns_an_enumerable_list(numbers):
@@ -37,10 +34,10 @@ def test_map_with_a_function_calls_it_ince_for_each_item_and_returns_an_enumerab
     assert result == [2, 3, 4]
 
 
-def test_map_without_a_function_yields_each_item(letters):
+def test_map_without_a_function_returns_an_enumerator(letters):
     enumerator = letters.map()
-    assert isgenerator(enumerator)
-    assert list(enumerator) == ["a", "b", "c"]
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x: x) == ["a", "b", "c"]
 
 
 def test_first(numbers):

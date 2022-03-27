@@ -1,4 +1,5 @@
-from pyby import Enumerable, EnumerableList
+from .enumerable import Enumerable
+from .object import respond_to
 
 
 class Enumerator(Enumerable):
@@ -36,13 +37,16 @@ class Enumerator(Enumerable):
         return self.__class__(self.iterable)
 
     def __each__(self):
-        return iter(self.iterable)
+        if respond_to(self.iterable, "__each__"):
+            return self.iterable.__each__()
+        else:
+            return iter(self.iterable)
 
     def __into__(self, method_name):
-        return EnumerableList
-
-    def __iter__(self):
-        return iter(self.iterable)
+        if respond_to(self.iterable, "__into__"):
+            return self.iterable.__into__(method_name)
+        else:
+            return list
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.iterable})"
