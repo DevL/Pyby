@@ -24,10 +24,14 @@ class Enumerable(RObject):
 
     def each(self, func=None):
         """
-        The basis for all the functionality of any enumerable.
-        Must be implemented by a subclass.
+        Given a function, calls the function once for each item in the enumerable.
+        Without a function, returns an enumerator by calling to_enum.
         """
-        raise NotImplementedError("'each' must be implemented by a subclass")
+        if func:
+            for item in self.__each__():
+                func(item)
+        else:
+            return self.to_enum()
 
     @as_enum
     def compact(self, into=None):
@@ -62,6 +66,20 @@ class Enumerable(RObject):
             return self.each()
 
     collect = map  # Alias for the map method
+
+    def to_enum(self):
+        """
+        Returns an enumerator for the enumerable.
+        Must be implemented by a subclass.
+        """
+        raise NotImplementedError("'to_enum' must be implemented by a subclass")
+
+    def __each__(self):
+        """
+        The basis for all the functionality of any enumerable.
+        Must be implemented by a subclass.
+        """
+        raise NotImplementedError("'__each__' must be implemented by a subclass")
 
     def __into__(self, method_name):
         """

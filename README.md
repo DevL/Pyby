@@ -22,12 +22,17 @@ Also available as a standalone function, rather than a method.
 ## [`Enumerable`](https://ruby-doc.org/core-3.1.1/Enumerable.html) (enumerable.py)
 
 A base class meant to be subclassed by an iterable.
-The iterable must implement `each` and `__into__` in order to unlock the rest of the functionality.
+The iterable must implement `__each__`, `__into__`, and `to_enum` in order to unlock the rest of the functionality.
 
 ### `as_enum` (internal)
 
 A decorator used internally to enable the return type of a method to be configured by the
 collection class inheriting from Enumerable. Relys on `__into__`.
+
+### `__each__` (internal)
+
+Must be implemented by the subclass.
+Returns an iterator to be used internally.
 
 ### `__into__` (internal)
 
@@ -36,9 +41,11 @@ Returns a constructor that accepts an iterable for the given method name.
 
 ### [`each`](https://ruby-doc.org/core-3.1.1/Enumerable.html#module-Enumerable-label-Enumerable+in+Ruby+Core+Classes)
 
-Must be implemented by the subclass.
+Given a function, calls the function once for each item in the enumerable.
 For sequences this will typically be the same as iterating over the elements,
 whereas for mappings this will be same as iterating over the items.
+
+Without a function, returns an enumerator by calling `to_enum`.
 
 ### [`compact`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-compact)
 
@@ -55,11 +62,16 @@ With an number of elements requested, returns as many elements as possible.
 Returns the result of mapping a function over the elements.
 The mapping function takes a single argument for sequences and two arguments for mappings.
 
+### [`to_enum`](https://ruby-doc.org/core-3.1.1/Object.html#method-i-to_enum)
+
+Returns an `Enumerator` for the enumerable.
+
 ---
 
 ## [`Enumerator`](https://ruby-doc.org/core-3.1.1/Enumerator.html) (enumerator.py)
 
 A class which allows both internal and external iteration.
+An enumerator is in turn an enumerable.
 
 ### [`next`](https://ruby-doc.org/core-3.1.1/Enumerator.html#method-i-next)
 
