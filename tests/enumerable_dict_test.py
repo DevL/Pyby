@@ -78,3 +78,7 @@ def test_compact_when_not_containing_any_None_values(enumerable_dict):
     result = enumerable_dict.compact()
     assert isinstance(result, EnumerableDict)
     assert result == {"a": 1, "b": 2, "c": 3}
+
+
+def test_repr(enumerable_dict):
+    assert repr(enumerable_dict) == "EnumerableDict({'a': 1, 'b': 2, 'c': 3})"

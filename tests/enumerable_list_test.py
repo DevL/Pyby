@@ -83,3 +83,7 @@ def test_compact_when_not_containing_any_None_values(letters):
     result = letters.compact()
     assert isinstance(result, EnumerableList)
     assert result == ["a", "b", "c"]
+
+
+def test_repr(letters):
+    assert repr(letters) == "EnumerableList(['a', 'b', 'c'])"
