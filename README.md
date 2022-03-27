@@ -65,6 +65,7 @@ The mapping function takes a single argument for sequences and two arguments for
 ### [`to_enum`](https://ruby-doc.org/core-3.1.1/Object.html#method-i-to_enum)
 
 Returns an `Enumerator` for the enumerable.
+Must be implemented by the subclass due to cyclical dependencies.
 
 ---
 
