@@ -1,5 +1,5 @@
 import pytest
-from pyby import Enumerator, Enumerable, EnumerableDict
+from pyby import Enumerable, EnumerableDict, Enumerator
 
 
 @pytest.fixture
@@ -12,8 +12,9 @@ def enumerated_dict():
     return Enumerator({"a": 1, "b": 2, "c": 3})
 
 
-def test_an_enumerator_responds_to_next():
-    assert Enumerator([]).respond_to("next")
+@pytest.mark.parametrize("method_name", ["next", "peek", "rewind"])
+def test_public_interface(enumerated_list, method_name):
+    assert Enumerator([]).respond_to(method_name)
 
 
 def test_repr(enumerated_list):
