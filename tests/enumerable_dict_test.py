@@ -1,6 +1,6 @@
-from collections import UserList
 from inspect import isgenerator
 from pyby import EnumerableDict, EnumerableList
+from .test_utils import Seen
 
 
 def test_each_with_a_function_calls_it_once_for_each_item():
@@ -81,11 +81,3 @@ def test_compact_when_not_containing_any_None_values():
     result = enumerable_dict.compact()
     assert isinstance(result, EnumerableDict)
     assert result == {"a": 1, "b": 2, "c": 3}
-
-
-class Seen(UserList):
-    def __bool__(self):
-        return True
-
-    def __call__(self, element):
-        self.data.append(element)

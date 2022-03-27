@@ -1,62 +1,70 @@
+import pytest
 from inspect import isgenerator
 from pyby import EnumerableList
+from .test_utils import Seen
 
 
-def test_each_with_a_function_calls_it_once_for_each_item():
-    seen = []
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    enumerable_list.each(lambda element: seen.append(element))
+@pytest.fixture
+def empty_list():
+    return EnumerableList()
+
+
+@pytest.fixture
+def letters():
+    return EnumerableList(["a", "b", "c"])
+
+
+@pytest.fixture
+def numbers():
+    return EnumerableList([1, 2, 3])
+
+
+def test_each_with_a_function_calls_it_once_for_each_item(letters):
+    seen = Seen()
+    letters.each(seen)
     assert seen == ["a", "b", "c"]
 
 
-def test_each_without_a_function_yields_each_item():
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    enumerator = enumerable_list.each()
+def test_each_without_a_function_yields_each_item(letters):
+    enumerator = letters.each()
     assert isgenerator(enumerator)
     assert list(enumerator) == ["a", "b", "c"]
 
 
-def test_map_with_a_function_calls_it_ince_for_each_item_and_returns_an_enumerable_list():
-    enumerable_list = EnumerableList([1, 2, 3])
-    result = enumerable_list.map(lambda element: element + 1)
+def test_map_with_a_function_calls_it_ince_for_each_item_and_returns_an_enumerable_list(numbers):
+    result = numbers.map(lambda element: element + 1)
     assert isinstance(result, EnumerableList)
     assert result == [2, 3, 4]
 
 
-def test_map_without_a_function_yields_each_item():
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    enumerator = enumerable_list.map()
+def test_map_without_a_function_yields_each_item(letters):
+    enumerator = letters.map()
     assert isgenerator(enumerator)
     assert list(enumerator) == ["a", "b", "c"]
 
 
-def test_first():
-    enumerable_list = EnumerableList([1, 2, 3])
-    assert enumerable_list.first() == 1
+def test_first(numbers):
+    assert numbers.first() == 1
 
 
-def test_first_when_empty():
-    enumerable_list = EnumerableList()
-    assert enumerable_list.first() is None
+def test_first_when_empty(empty_list):
+    assert empty_list.first() is None
 
 
-def test_first_with_number_of_elements_specified():
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    result = enumerable_list.first(2)
+def test_first_with_number_of_elements_specified(letters):
+    result = letters.first(2)
     assert isinstance(result, EnumerableList)
     assert result == ["a", "b"]
 
 
-def test_first_with_fewer_elements_than_asked_for():
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    result = enumerable_list.first(5)
+def test_first_with_fewer_elements_than_asked_for(letters):
+    result = letters.first(5)
     assert isinstance(result, EnumerableList)
     assert result == ["a", "b", "c"]
 
 
-def test_first_when_empty_when_asked_for_a_number_of_elements():
-    enumerable_list = EnumerableList()
-    result = enumerable_list.first(5)
+def test_first_when_empty_when_asked_for_a_number_of_elements(empty_list):
+    result = empty_list.first(5)
     assert isinstance(result, EnumerableList)
     assert result == []
 
@@ -68,15 +76,13 @@ def test_compact():
     assert result == ["a", "b", "c"]
 
 
-def test_compact_when_empty():
-    enumerable_list = EnumerableList()
-    result = enumerable_list.compact()
+def test_compact_when_empty(empty_list):
+    result = empty_list.compact()
     assert isinstance(result, EnumerableList)
     assert result == []
 
 
-def test_compact_when_not_containing_any_None_values():
-    enumerable_list = EnumerableList(["a", "b", "c"])
-    result = enumerable_list.compact()
+def test_compact_when_not_containing_any_None_values(letters):
+    result = letters.compact()
     assert isinstance(result, EnumerableList)
     assert result == ["a", "b", "c"]
