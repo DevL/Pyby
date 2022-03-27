@@ -11,12 +11,12 @@ class Enumerable(RObject):
     def as_enum(func):
         """
         Decorator enabling the return type of a method to be configured by the
-        collection class inheriting from Enumerable.
+        collection class inheriting from Enumerable. Relys on `__into__`.
         """
 
         @wraps(func)
         def wrapper(self, *args, **kwargs):
-            into = self._return_type_for(func.__name__)
+            into = self.__into__(func.__name__)
             result = func(self, *args, into=into, **kwargs)
             return result
 
@@ -63,12 +63,13 @@ class Enumerable(RObject):
 
     collect = map  # Alias for the map method
 
-    def _return_type_for(self, method_name):
+    def __into__(self, method_name):
         """
         Returns a constructor that accepts an iterable for the given method name.
+        Used by the as_enum decorator internally.
         Must be implemented by a subclass.
         """
-        raise NotImplementedError("'_return_type_for' must be implemented by a subclass")
+        raise NotImplementedError("'__into__' must be implemented by a subclass")
 
 
 def _to_tuple(item):

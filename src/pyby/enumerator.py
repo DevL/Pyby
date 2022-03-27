@@ -24,11 +24,11 @@ class Enumerator(Enumerable):
         self.enumeration = iter(self.iterable)
         return self
 
+    def __into__(self, method_name):
+        return EnumerableList
+
     def __iter__(self):
         return iter(self.iterable)
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.iterable})"
-
-    def _return_type_for(self, method_name):
-        return EnumerableList

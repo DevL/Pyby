@@ -15,5 +15,5 @@ class EnumerableDict(Enumerable, UserDict):
         else:
             return iter(self.items())
 
-    def _return_type_for(self, method_name):
-        return {"compact": self.__class__}.get(method_name, EnumerableList)
+    def __into__(self, method_name):
+        return {"compact": __class__}.get(method_name, EnumerableList)
