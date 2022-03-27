@@ -83,10 +83,16 @@ An enumerator is in turn an enumerable.
 Returns the next object in the enumeration sequence.
 If going beyond the enumeration, `StopIteration` is raised.
 
+### [`peek`](https://ruby-doc.org/core-3.1.1/Enumerator.html#method-i-peek)
+
+Returns the current object in the enumeration sequence without advancing the enumeration.
+If going beyond the enumeration, `StopIteration` is raised.
+
 ### [`rewind`](https://ruby-doc.org/core-3.1.1/Enumerator.html#method-i-rewind)
 
 Rewinds the enumeration sequence to the beginning.
-Note that this may not be possible to do for underlying iterables that can be exhausted.
+
+_Note that this may not be possible to do for underlying iterables that can be exhausted._
 
 ---
 
@@ -112,5 +118,5 @@ Note that this may not be possible to do for underlying iterables that can be ex
 # Enumerator Candidates
 
 - [x] next
-- [ ] peek
+- [x] peek
 - [x] rewind

@@ -20,10 +20,12 @@ def test_repr(enumerated_list):
     assert repr(enumerated_list) == "Enumerator([1, 2, 3])"
 
 
-def test_an_enumerated_list_can_be_iterated(enumerated_list):
+def test_an_enumerated_list_can_be_enumerated(enumerated_list):
     assert enumerated_list.next() == 1
     assert enumerated_list.next() == 2
     assert enumerated_list.next() == 3
+    with pytest.raises(StopIteration):
+        enumerated_list.next()
 
 
 def test_an_enumerated_list_can_be_rewound(enumerated_list):
@@ -33,10 +35,12 @@ def test_an_enumerated_list_can_be_rewound(enumerated_list):
     assert enumerated_list.next() == 1
 
 
-def test_an_enumerated_dict_can_be_iterated(enumerated_dict):
+def test_an_enumerated_dict_can_be_enumerated(enumerated_dict):
     assert enumerated_dict.next() == "a"
     assert enumerated_dict.next() == "b"
     assert enumerated_dict.next() == "c"
+    with pytest.raises(StopIteration):
+        enumerated_dict.next()
 
 
 def test_an_enumerated_dict_can_be_rewound(enumerated_dict):
@@ -60,6 +64,21 @@ def test_enumerating_an_enumerator_is_not_affected_by_invoking_next(enumerated_l
     enumerated_list.each(seen)
     assert seen == [1, 2, 3]
     assert enumerated_list.next() == 2
+
+
+def test_peek(enumerated_list):
+    assert enumerated_list.peek() == 1
+    assert enumerated_list.next() == 1
+    assert enumerated_list.peek() == 2
+    assert enumerated_list.peek() == 2
+    assert enumerated_list.next() == 2
+    assert enumerated_list.peek() == 3
+    assert enumerated_list.next() == 3
+    with pytest.raises(StopIteration):
+        enumerated_list.peek()
+    enumerated_list.rewind()
+    assert enumerated_list.peek() == 1
+    assert enumerated_list.next() == 1
 
 
 def test_an_enumerator_is_iterable(enumerated_list, enumerated_dict):

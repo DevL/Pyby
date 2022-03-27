@@ -1,6 +1,8 @@
 from .enumerable import Enumerable
 from .object import respond_to
 
+NO_HEAD = object()
+
 
 class Enumerator(Enumerable):
     """
@@ -10,6 +12,7 @@ class Enumerator(Enumerable):
     def __init__(self, iterable):
         self.iterable = iterable
         self.enumeration = iter(iterable)
+        self.head = NO_HEAD
 
     def each(self, func=None):
         if func:
@@ -23,7 +26,21 @@ class Enumerator(Enumerable):
         Returns the next object in the enumeration sequence.
         If going beyond the enumeration, `StopIteration` is raised.
         """
-        return next(self.enumeration)
+        head = self.head
+        if head == NO_HEAD:
+            return next(self.enumeration)
+        else:
+            self.head = NO_HEAD
+            return head
+
+    def peek(self):
+        """
+        Returns the current object in the enumeration sequence without advancing the enumeration.
+        If going beyond the enumeration, `StopIteration` is raised.
+        """
+        if self.head == NO_HEAD:
+            self.head = next(self.enumeration)
+        return self.head
 
     def rewind(self):
         """
