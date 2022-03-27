@@ -18,9 +18,17 @@ class Enumerator(Enumerable):
             return self.__class__(self.iterable)
 
     def next(self):
+        """
+        Returns the next object in the enumeration sequence.
+        If going beyond the enumeration, `StopIteration` is raised.
+        """
         return next(self.enumeration)
 
     def rewind(self):
+        """
+        Rewinds the enumeration sequence to the beginning.
+        Note that this may not be possible to do for underlying iterables that can be exhausted.
+        """
         self.enumeration = iter(self.iterable)
         return self
 

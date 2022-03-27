@@ -6,6 +6,8 @@ Lecture material for implementing certain Ruby-like behaviours in Python.
 
 The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.
 
+---
+
 ## [`RObject`](https://ruby-doc.org/core-3.1.1/Object.html) (object.py)
 
 A base class to enrich Python objects with additional functionality.
@@ -14,6 +16,8 @@ A base class to enrich Python objects with additional functionality.
 
 Determines whether an object has a certain callable property or not.
 Also available as a standalone function, rather than a method.
+
+---
 
 ## [`Enumerable`](https://ruby-doc.org/core-3.1.1/Enumerable.html) (enumerable.py)
 
@@ -51,7 +55,25 @@ With an number of elements requested, returns as many elements as possible.
 Returns the result of mapping a function over the elements.
 The mapping function takes a single argument for sequences and two arguments for mappings.
 
-# Candidates
+---
+
+## [`Enumerator`](https://ruby-doc.org/core-3.1.1/Enumerator.html) (enumerator.py)
+
+A class which allows both internal and external iteration.
+
+### [`next`](https://ruby-doc.org/core-3.1.1/Enumerator.html#method-i-next)
+
+Returns the next object in the enumeration sequence.
+If going beyond the enumeration, `StopIteration` is raised.
+
+### [`rewind`](https://ruby-doc.org/core-3.1.1/Enumerator.html#method-i-rewind)
+
+Rewinds the enumeration sequence to the beginning.
+Note that this may not be possible to do for underlying iterables that can be exhausted.
+
+---
+
+# Enumerable Candidates
 
 - [x] collect/map
 - [x] compact
