@@ -20,6 +20,10 @@ Must be implemented by the subclass.
 For sequences this will typically be the same as iterating over the elements,
 whereas for mappings this will be same as iterating over the items.
 
+### [compact](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-compact)
+
+Returns an enumerable of the elements with None values removed.
+
 ### [first](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-first)
 
 Returns the first element or a given number of elements.
