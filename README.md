@@ -1,5 +1,9 @@
 # Pyby
 
+![PyPI](https://img.shields.io/pypi/v/pyby)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyby)
+![PyPI - Status](https://img.shields.io/pypi/status/pyby)
+![PyPI - License](https://img.shields.io/pypi/l/pyby)
 [![Python package](https://github.com/DevL/pyby/actions/workflows/python-package.yml/badge.svg)](https://github.com/DevL/pyby/actions/workflows/python-package.yml)
 
 Lecture material for implementing certain Ruby-like behaviours in Python.
