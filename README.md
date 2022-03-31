@@ -8,6 +8,8 @@
 
 Lecture material for implementing certain Ruby-like behaviours in Python.
 
+**NB:** This is heavily under development and subject to change. Expect breaking changes until the 1.0.0 release.
+
 ## Current Functionality
 
 The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.

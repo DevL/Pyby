@@ -1,5 +1,8 @@
 PYTHON_VERSION ?= 3.8
 
+dist: clean-dist
+	python3 setup.py sdist
+
 venv: dev-packages.txt
 	virtualenv venv --python=${PYTHON_VERSION}
 	. venv/bin/activate && pip3 install --upgrade pip && pip3 install -r dev-packages.txt
@@ -15,6 +18,12 @@ focus-test: venv
 	@ . venv/bin/activate && flake8 src tests --exclude '#*,~*,.#*'
 
 .PHONY: clean
-clean:
+clean: clean-dist
 	rm -rf venv
 	find . -name "*.pyc" -delete
+
+.PHONY: clean-dist
+clean-dist:
+	rm -rf build
+	rm -rf src/python_on_rails.egg-info
+	rm -rf dist

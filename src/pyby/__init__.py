@@ -4,6 +4,8 @@ from .enumerable_list import EnumerableList
 from .enumerator import Enumerator
 from .object import respond_to, RObject
 
+VERSION = "0.1.0"
+
 __all__ = [
     Enumerable,
     EnumerableDict,
