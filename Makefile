@@ -25,5 +25,5 @@ clean: clean-dist
 .PHONY: clean-dist
 clean-dist:
 	rm -rf build
-	rm -rf src/python_on_rails.egg-info
+	rm -rf src/pyby.egg-info
 	rm -rf dist
