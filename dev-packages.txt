@@ -1,4 +1,4 @@
-flake8
 black
+flake8
 pytest
 pytest-cov
