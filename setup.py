@@ -36,8 +36,8 @@ setup(
     packages=find_packages(where="src"),
     python_requires="~=3.8",
     project_urls={
-        "Bug Reports": "https://github.com/DevL/pyby/issues",
-        "Source": "https://github.com/DevL/pyby",
+        "Bug Reports": "https://github.com/DevL/Pyby/issues",
+        "Source": "https://github.com/DevL/Pyby",
     },
-    url="https://github.com/DevL/pyby",
+    url="https://devl.github.io/Pyby",
 )
