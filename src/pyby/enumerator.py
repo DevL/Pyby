@@ -63,3 +63,9 @@ class Enumerator(Enumerable):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.iterable})"
+
+    def __to_tuple__(self, item):
+        if respond_to(self.iterable, "__into__"):
+            return self.iterable.__to_tuple__(item)
+        else:
+            return (item,)

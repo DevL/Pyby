@@ -38,7 +38,7 @@ class Enumerable(RObject):
         """
         Returns an enumerable of the elements with None values removed.
         """
-        return into(item for item in self.__each__() if _to_tuple(item)[-1] is not None)
+        return into(item for item in self.__each__() if self.__to_tuple__(item)[-1] is not None)
 
     @as_enum
     def select(self, func=None, into=None):
@@ -49,7 +49,7 @@ class Enumerable(RObject):
         Also available as the alias `filter`.
         """
         if func:
-            return into(item for item in self.__each__() if func(*_to_tuple(item)))
+            return into(item for item in self.__each__() if func(*self.__to_tuple__(item)))
         else:
             return self.to_enum()
 
@@ -76,7 +76,7 @@ class Enumerable(RObject):
         Also available as the alias `collect`.
         """
         if func:
-            return into(func(*_to_tuple(item)) for item in self.__each__())
+            return into(func(*self.__to_tuple__(item)) for item in self.__each__())
         else:
             return self.to_enum()
 
@@ -110,13 +110,11 @@ class Enumerable(RObject):
         """
         raise NotImplementedError("'__into__' must be implemented by a subclass")
 
-
-def _to_tuple(item):
-    """
-    >>> _to_tuple(1)
-    (1,)
-
-    >>> _to_tuple(("key", "value"))
-    ('key', 'value')
-    """
-    return item if isinstance(item, tuple) else (item,)
+    def __to_tuple__(self, item):
+        """
+        Transforms a single element of an enumerable to a tuple.
+        Used internally to uniformly handle predicate and mapping functions with a higher arity
+        than one.
+        May be overriden by a subclass.
+        """
+        return (item,)

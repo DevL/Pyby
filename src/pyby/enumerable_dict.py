@@ -23,3 +23,6 @@ class EnumerableDict(Enumerable, UserDict):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.data})"
+
+    def __to_tuple__(self, item):
+        return item
