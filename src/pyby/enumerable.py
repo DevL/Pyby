@@ -17,7 +17,7 @@ class Enumerable(RObject):
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             into = self.__into__(func.__name__)
-            result = func(self, *args, into=into, **kwargs)
+            result = func(self, into, *args, **kwargs)
             return result
 
         return wrapper
@@ -34,14 +34,14 @@ class Enumerable(RObject):
             return self.to_enum()
 
     @as_enum
-    def compact(self, into=None):
+    def compact(self, into):
         """
         Returns an enumerable of the elements with None values removed.
         """
         return into(item for item in self.__each__() if self.__to_tuple__(item)[-1] is not None)
 
     @as_enum
-    def select(self, func=None, into=None):
+    def select(self, into, func=None):
         """
         Returns the elements for which the function is truthy.
         Without a function, returns an enumerator by calling to_enum.
@@ -56,7 +56,7 @@ class Enumerable(RObject):
     filter = select  # Alias for the select method
 
     @as_enum
-    def first(self, number=None, into=None):
+    def first(self, into, number=None):
         """
         Returns the first element or a given number of elements.
         With no argument, returns the first element, or `None` if there is none.
@@ -68,7 +68,7 @@ class Enumerable(RObject):
             return into(islice(self.__each__(), number))
 
     @as_enum
-    def map(self, func=None, into=None):
+    def map(self, into, func=None):
         """
         Returns the result of mapping a function over the elements.
         The mapping function takes a single argument for sequences and two arguments for mappings.
