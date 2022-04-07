@@ -14,6 +14,11 @@ def letters():
 
 
 @pytest.fixture
+def list_with_a_tuple():
+    return EnumerableList(["a", ("b", None), "c"])
+
+
+@pytest.fixture
 def numbers():
     return EnumerableList([1, 2, 3])
 
@@ -52,6 +57,12 @@ def test_compact_when_not_containing_any_None_values(letters):
     assert result == ["a", "b", "c"]
 
 
+def test_compact_with_a_sequence_containing_a_tuple(list_with_a_tuple):
+    result = list_with_a_tuple.compact()
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", ("b", None), "c"]
+
+
 def test_first(numbers):
     assert numbers.first() == 1
 
@@ -84,6 +95,12 @@ def test_map_with_a_function_calls_it_once_for_each_item_and_returns_an_enumerab
     assert result == [2, 3, 4]
 
 
+def test_map_with_a_sequence_containing_a_tuple(list_with_a_tuple):
+    result = list_with_a_tuple.map(lambda value: value is not None)
+    assert isinstance(result, EnumerableList)
+    assert result == [True, True, True]
+
+
 def test_map_without_a_function_returns_an_enumerator(letters):
     enumerator = letters.map()
     assert isinstance(enumerator, Enumerator)
@@ -100,6 +117,12 @@ def test_select_without_a_function_returns_an_enumerator(letters):
     enumerator = letters.select()
     assert isinstance(enumerator, Enumerator)
     assert enumerator.map(pass_through) == ["a", "b", "c"]
+
+
+def test_select_with_a_sequence_containing_a_tuple(list_with_a_tuple):
+    result = list_with_a_tuple.select(lambda value: value is not None)
+    assert isinstance(result, EnumerableList)
+    assert result == ["a", ("b", None), "c"]
 
 
 def test_take(letters):
