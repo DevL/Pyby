@@ -17,7 +17,7 @@ def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen)
     assert seen == [("a", 1), ("b", 2), ("c", 3)]
 
 
-def test_each_without_a_function_yields_each_item(enumerable_dict):
+def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
     enumerator = enumerable_dict.each()
     assert isinstance(enumerator, Enumerator)
     assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
@@ -29,7 +29,7 @@ def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
     assert result == [("A", 2), ("B", 3), ("C", 4)]
 
 
-def test_map_without_a_function_yields_each_item(enumerable_dict):
+def test_map_without_a_function_returns_an_enumerator(enumerable_dict):
     enumerator = enumerable_dict.map()
     assert isinstance(enumerator, Enumerator)
     assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
