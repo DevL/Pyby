@@ -47,10 +47,11 @@ Transforms a single element of an enumerable to a tuple.
 Used internally to uniformly handle predicate and mapping functions with a higher arity than one.  
 May be implemented by the subclass.
 
-#### `as_enum` (internal)
+#### `adaptive` (internal)
 
-A decorator used internally to enable the return type of a method to be configured by the
-collection class inheriting from Enumerable. Relys on `__into__`.
+A decorator used internally to enable the return type of a method, as well as the number of arguments predicate and mapping functions are to be called with, to be configured by the collection class inheriting from Enumerable.
+
+Relys on `__into__` and `__to_tuple__`.
 
 #### [`collect`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-collect), [`map`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-map)
 

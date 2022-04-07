@@ -8,18 +8,20 @@ class Enumerable(RObject):
     Base class for collection classes mimicing some of Ruby's Enumerable module.
     """
 
-    def as_enum(func):
+    def adaptive(method):
         """
-        Decorator enabling the return type of a method to be configured by the
-        collection class inheriting from Enumerable. Relys on `__into__`.
+        Decorator enabling the return type of a method, as well as the number of arguments
+        predicate and mapping functions are to be called with, to be configured by the
+        collection class inheriting from Enumerable.
+
+        Relys on `__into__` and `__to_tuple__`.
         """
 
-        @wraps(func)
+        @wraps(method)
         def wrapper(self, *args, **kwargs):
-            into = self.__into__(func.__name__)
+            into = self.__into__(method.__name__)
             to_tuple = self.__to_tuple__
-            result = func(self, into, to_tuple, *args, **kwargs)
-            return result
+            return method(self, into, to_tuple, *args, **kwargs)
 
         return wrapper
 
@@ -34,14 +36,14 @@ class Enumerable(RObject):
         else:
             return self.to_enum()
 
-    @as_enum
+    @adaptive
     def compact(self, into, to_tuple):
         """
         Returns an enumerable of the elements with None values removed.
         """
         return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
 
-    @as_enum
+    @adaptive
     def select(self, into, to_tuple, func=None):
         """
         Returns the elements for which the function is truthy.
@@ -56,7 +58,7 @@ class Enumerable(RObject):
 
     filter = select  # Alias for the select method
 
-    @as_enum
+    @adaptive
     def first(self, into, to_tuple, number=None):
         """
         Returns the first element or a given number of elements.
@@ -68,7 +70,7 @@ class Enumerable(RObject):
         else:
             return into(islice(self.__each__(), number))
 
-    @as_enum
+    @adaptive
     def map(self, into, to_tuple, func=None):
         """
         Returns the result of mapping a function over the elements.
@@ -106,7 +108,7 @@ class Enumerable(RObject):
     def __into__(self, method_name):
         """
         Returns a constructor that accepts an iterable for the given method name.
-        Used by the as_enum decorator internally.
+        Used by the adaptive decorator internally.
         Must be implemented by a subclass.
         """
         raise NotImplementedError("'__into__' must be implemented by a subclass")
@@ -114,7 +116,7 @@ class Enumerable(RObject):
     def __to_tuple__(self, item):
         """
         Transforms a single element of an enumerable to a tuple.
-        Used internally by the as_enum decorator to uniformly handle predicate and mapping
+        Used internally by the adaptive decorator to uniformly handle predicate and mapping
         functions with a higher arity than one.
         May be overriden by a subclass.
         """
