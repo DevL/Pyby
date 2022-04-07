@@ -1,6 +1,6 @@
 import pytest
 from pyby import Enumerable, EnumerableDict, Enumerator
-from .test_helpers import identity
+from .test_helpers import pass_through
 
 
 @pytest.fixture
@@ -84,11 +84,11 @@ def test_peek(enumerated_list):
 
 
 def test_an_enumerator_is_iterable(enumerated_list, enumerated_dict):
-    assert list(map(identity, enumerated_list)) == [1, 2, 3]
-    assert list(map(identity, enumerated_dict)) == ["a", "b", "c"]
+    assert list(map(pass_through, enumerated_list)) == [1, 2, 3]
+    assert list(map(pass_through, enumerated_dict)) == ["a", "b", "c"]
 
     enum = Enumerator(EnumerableDict({"a": 1, "b": 2, "c": 3}))
-    assert list(map(identity, enum)) == [("a", 1), ("b", 2), ("c", 3)]
+    assert list(map(pass_through, enum)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_each_without_a_function_returns_a_new_enumerator(enumerated_list):

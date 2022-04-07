@@ -41,6 +41,21 @@ class Enumerable(RObject):
         return into(item for item in self.__each__() if _to_tuple(item)[-1] is not None)
 
     @as_enum
+    def select(self, func=None, into=None):
+        """
+        Returns the elements for which the function is truthy.
+        Without a function, returns an enumerator by calling to_enum.
+
+        Also available as the alias `filter`.
+        """
+        if func:
+            return into(item for item in self.__each__() if func(*_to_tuple(item)))
+        else:
+            return self.to_enum()
+
+    filter = select  # Alias for the select method
+
+    @as_enum
     def first(self, number=None, into=None):
         """
         Returns the first element or a given number of elements.
