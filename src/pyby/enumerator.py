@@ -1,5 +1,4 @@
 from .enumerable import Enumerable
-from .object import respond_to
 
 NO_HEAD = object()
 
@@ -13,6 +12,7 @@ class Enumerator(Enumerable):
         self.iterable = iterable
         self.enumeration = iter(iterable)
         self.head = NO_HEAD
+        self.delegate = isinstance(self.iterable, Enumerable)
 
     def next(self):
         """
@@ -47,13 +47,13 @@ class Enumerator(Enumerable):
         return self.__class__(self.iterable)
 
     def __each__(self):
-        if respond_to(self.iterable, "__each__"):
+        if self.delegate:
             return self.iterable.__each__()
         else:
             return iter(self.iterable)
 
     def __into__(self, method_name):
-        if respond_to(self.iterable, "__into__"):
+        if self.delegate:
             return self.iterable.__into__(method_name)
         else:
             return list
@@ -65,7 +65,7 @@ class Enumerator(Enumerable):
         return f"{self.__class__.__name__}({self.iterable})"
 
     def __to_tuple__(self, item):
-        if respond_to(self.iterable, "__to_tuple__"):
+        if self.delegate:
             return self.iterable.__to_tuple__(item)
         else:
             return (item,)
