@@ -17,7 +17,8 @@ class Enumerable(RObject):
         @wraps(func)
         def wrapper(self, *args, **kwargs):
             into = self.__into__(func.__name__)
-            result = func(self, into, *args, **kwargs)
+            to_tuple = self.__to_tuple__
+            result = func(self, into, to_tuple, *args, **kwargs)
             return result
 
         return wrapper
@@ -34,14 +35,14 @@ class Enumerable(RObject):
             return self.to_enum()
 
     @as_enum
-    def compact(self, into):
+    def compact(self, into, to_tuple):
         """
         Returns an enumerable of the elements with None values removed.
         """
-        return into(item for item in self.__each__() if self.__to_tuple__(item)[-1] is not None)
+        return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
 
     @as_enum
-    def select(self, into, func=None):
+    def select(self, into, to_tuple, func=None):
         """
         Returns the elements for which the function is truthy.
         Without a function, returns an enumerator by calling to_enum.
@@ -49,14 +50,14 @@ class Enumerable(RObject):
         Also available as the alias `filter`.
         """
         if func:
-            return into(item for item in self.__each__() if func(*self.__to_tuple__(item)))
+            return into(item for item in self.__each__() if func(*to_tuple(item)))
         else:
             return self.to_enum()
 
     filter = select  # Alias for the select method
 
     @as_enum
-    def first(self, into, number=None):
+    def first(self, into, to_tuple, number=None):
         """
         Returns the first element or a given number of elements.
         With no argument, returns the first element, or `None` if there is none.
@@ -68,7 +69,7 @@ class Enumerable(RObject):
             return into(islice(self.__each__(), number))
 
     @as_enum
-    def map(self, into, func=None):
+    def map(self, into, to_tuple, func=None):
         """
         Returns the result of mapping a function over the elements.
         The mapping function takes a single argument for sequences and two arguments for mappings.
@@ -76,7 +77,7 @@ class Enumerable(RObject):
         Also available as the alias `collect`.
         """
         if func:
-            return into(func(*self.__to_tuple__(item)) for item in self.__each__())
+            return into(func(*to_tuple(item)) for item in self.__each__())
         else:
             return self.to_enum()
 
@@ -113,8 +114,8 @@ class Enumerable(RObject):
     def __to_tuple__(self, item):
         """
         Transforms a single element of an enumerable to a tuple.
-        Used internally to uniformly handle predicate and mapping functions with a higher arity
-        than one.
+        Used internally by the as_enum decorator to uniformly handle predicate and mapping
+        functions with a higher arity than one.
         May be overriden by a subclass.
         """
         return (item,)

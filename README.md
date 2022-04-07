@@ -29,16 +29,23 @@ Also available as a standalone function, rather than a method.
 
 A base class meant to be subclassed by an iterable.  
 The iterable must implement `__each__`, `__into__`, and `to_enum` in order to unlock the rest of the functionality.
+In addition, the iterable may implement `__to_tuple__` in order to support predicate and mapping functions with a higher arity than one. A prime example would be `EnumerableDict` in combination with `select` where the 
 
 #### `__each__` (internal)
 
+Returns an iterator to be used internally.  
 Must be implemented by the subclass.
-Returns an iterator to be used internally.
 
 #### `__into__` (internal)
 
+Returns a constructor that accepts an iterable for the given method name.  
 Must be implemented by the subclass.
-Returns a constructor that accepts an iterable for the given method name.
+
+#### `__to_tuple__` (internal)
+
+Transforms a single element of an enumerable to a tuple.  
+Used internally to uniformly handle predicate and mapping functions with a higher arity than one.  
+May be implemented by the subclass.
 
 #### `as_enum` (internal)
 
