@@ -4,7 +4,7 @@ from .enumerable_list import EnumerableList
 from .enumerator import Enumerator
 from .object import respond_to, RObject
 
-VERSION = "0.2.0"
+VERSION = "0.2.1"
 
 __all__ = [
     Enumerable,
