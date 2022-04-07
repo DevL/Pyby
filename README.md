@@ -53,6 +53,10 @@ A decorator used internally to enable the return type of a method, as well as th
 
 Relys on `__into__` and `__to_tuple__`.
 
+#### `enumerator_without_func` (internal)
+
+A decorator used internally to return an `Enumerator` of the enumerable if no arguments are passed to the method.
+
 #### [`collect`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-collect), [`map`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-map)
 
 Returns the result of mapping a function over the elements.  

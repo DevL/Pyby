@@ -25,16 +25,29 @@ class Enumerable(RObject):
 
         return wrapper
 
-    def each(self, func=None):
+    def enumerator_without_func(method):
+        """
+        Decorator that skips calling the decorated method if no arguments have been passed
+        and instead returns an Enumerator based on the enumerable.
+        """
+
+        @wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if args or kwargs:
+                return method(self, *args, **kwargs)
+            else:
+                return self.to_enum()
+
+        return wrapper
+
+    @enumerator_without_func
+    def each(self, func):
         """
         Given a function, calls the function once for each item in the enumerable.
         Without a function, returns an enumerator by calling to_enum.
         """
-        if func:
-            for item in self.__each__():
-                func(item)
-        else:
-            return self.to_enum()
+        for item in self.__each__():
+            func(item)
 
     @adaptive
     def compact(self, into, to_tuple):
@@ -43,18 +56,16 @@ class Enumerable(RObject):
         """
         return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
 
+    @enumerator_without_func
     @adaptive
-    def select(self, into, to_tuple, func=None):
+    def select(self, into, to_tuple, func):
         """
         Returns the elements for which the function is truthy.
         Without a function, returns an enumerator by calling to_enum.
 
         Also available as the alias `filter`.
         """
-        if func:
-            return into(item for item in self.__each__() if func(*to_tuple(item)))
-        else:
-            return self.to_enum()
+        return into(item for item in self.__each__() if func(*to_tuple(item)))
 
     filter = select  # Alias for the select method
 
@@ -70,18 +81,16 @@ class Enumerable(RObject):
         else:
             return into(islice(self.__each__(), number))
 
+    @enumerator_without_func
     @adaptive
-    def map(self, into, to_tuple, func=None):
+    def map(self, into, to_tuple, func):
         """
         Returns the result of mapping a function over the elements.
         The mapping function takes a single argument for sequences and two arguments for mappings.
 
         Also available as the alias `collect`.
         """
-        if func:
-            return into(func(*to_tuple(item)) for item in self.__each__())
-        else:
-            return self.to_enum()
+        return into(func(*to_tuple(item)) for item in self.__each__())
 
     collect = map  # Alias for the map method
 
