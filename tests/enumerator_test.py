@@ -1,5 +1,6 @@
 import pytest
 from pyby import Enumerable, EnumerableDict, Enumerator
+from .test_helpers import identity
 
 
 @pytest.fixture
@@ -83,11 +84,11 @@ def test_peek(enumerated_list):
 
 
 def test_an_enumerator_is_iterable(enumerated_list, enumerated_dict):
-    assert list(map(_identity, enumerated_list)) == [1, 2, 3]
-    assert list(map(_identity, enumerated_dict)) == ["a", "b", "c"]
+    assert list(map(identity, enumerated_list)) == [1, 2, 3]
+    assert list(map(identity, enumerated_dict)) == ["a", "b", "c"]
 
     enum = Enumerator(EnumerableDict({"a": 1, "b": 2, "c": 3}))
-    assert list(map(_identity, enum)) == [("a", 1), ("b", 2), ("c", 3)]
+    assert list(map(identity, enum)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_each_without_a_function_returns_a_new_enumerator(enumerated_list):
@@ -111,7 +112,3 @@ def test_the_return_type_defaults_to_a_list_for_normal_iterables():
     enum = Enumerator({"a": 1, "b": None, "c": 3, None: 4})
     result = enum.compact()
     assert result == ["a", "b", "c"]
-
-
-def _identity(value):
-    return value

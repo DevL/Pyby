@@ -1,5 +1,6 @@
 import pytest
 from pyby import Enumerable
+from .test_helpers import identity
 
 
 @pytest.fixture
@@ -19,7 +20,7 @@ def test_aliases(enumerable, alias, method_name):
 
 def test_each_with_function_requires___each___to_be_implemented_by_a_subclass(enumerable):
     with pytest.raises(NotImplementedError, match="'__each__' must be implemented by a subclass"):
-        enumerable.each(lambda x: x)
+        enumerable.each(identity)
 
 
 def test_each_without_a_function_requires_to_enum_to_be_implemented_by_a_subclass(enumerable):
