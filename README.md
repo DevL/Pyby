@@ -4,8 +4,9 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyby)
 ![PyPI - Status](https://img.shields.io/pypi/status/pyby)
 ![PyPI - License](https://img.shields.io/pypi/l/pyby)
+![based on Ruby](https://img.shields.io/badge/based%20on%20Ruby-3.1.1-red)
 [![Python package](https://github.com/DevL/pyby/actions/workflows/python-package.yml/badge.svg)](https://github.com/DevL/pyby/actions/workflows/python-package.yml)
-![Ruby target version](https://img.shields.io/badge/Ruby%20target%20version-3.1.1-red)
+
 
 A library implementing certain Ruby-like behaviours in Python.
 
