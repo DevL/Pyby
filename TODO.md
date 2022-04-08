@@ -27,3 +27,9 @@
 - [x] next
 - [x] peek
 - [x] rewind
+
+---
+
+# Additional Candidates
+
+- [ ] [Struct](https://ruby-doc.org/core-3.1.1/Struct.html)
