@@ -5,14 +5,16 @@
 ![PyPI - Status](https://img.shields.io/pypi/status/pyby)
 ![PyPI - License](https://img.shields.io/pypi/l/pyby)
 [![Python package](https://github.com/DevL/pyby/actions/workflows/python-package.yml/badge.svg)](https://github.com/DevL/pyby/actions/workflows/python-package.yml)
+![Ruby target version](https://img.shields.io/badge/Ruby%20target%20version-3.1.1-red)
 
-Lecture material for implementing certain Ruby-like behaviours in Python.
+A library implementing certain Ruby-like behaviours in Python.
 
 **NB:** This is heavily under development and subject to change. Expect breaking changes until the 1.0.0 release.
 
 ## Current Functionality
 
-The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.
+The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.  
+Currently, Ruby version 3.1.1 is used as a basis for the mimiced functionality.
 
 ### [`RObject`](https://ruby-doc.org/core-3.1.1/Object.html) (object.py)
 
