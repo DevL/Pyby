@@ -6,6 +6,10 @@
 - [ ] count (no args)
 - [ ] count (non-callable arg)
 - [ ] count (callable arg)
+- [ ] cycle (positive number)
+- [ ] cycle (zero or negative number)
+- [ ] cycle (no number)
+- [ ] cycle (no arg)
 - [x] each (no args)
 - [x] each (callable arg)
 - [ ] find
