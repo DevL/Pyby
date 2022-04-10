@@ -10,7 +10,9 @@ _A library implementing certain Ruby-like behaviours in Python._
 pip install pyby
 ```
 
-## Available Functionalty
+## Available Functionality
+
+The behaviour being mimiced is currently based on Ruby 3.1.1.
 
 <dl>
   <dt><strong>Enumerable</strong></dt>
