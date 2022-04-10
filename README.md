@@ -26,6 +26,11 @@ A base class to enrich Python objects with additional functionality.
 Determines whether an object has a certain callable property or not.  
 Also available as a standalone function, rather than a method.
 
+#### [`send`](https://ruby-doc.org/core-3.1.1/Object.html#method-i-send)
+
+Calls the property identified by name, passing it any arguments specified.
+If the property is not callable, and no arguments are specified, the property is instead returned.
+
 ---
 
 ### [`Enumerable`](https://ruby-doc.org/core-3.1.1/Enumerable.html) (enumerable.py)

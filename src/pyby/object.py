@@ -17,5 +17,12 @@ class RObject:
         """
         return callable(getattr(self, name, False))
 
+    def send(self, name, *args, **kwargs):
+        property_or_method = getattr(self, name)
+        if args or kwargs or callable(property_or_method):
+            return property_or_method(*args, **kwargs)
+        else:
+            return property_or_method
+
 
 respond_to = RObject.respond_to
