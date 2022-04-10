@@ -85,8 +85,20 @@ def test_map_without_a_function_returns_an_enumerator(enumerable_dict):
     assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
+def test_reject_returns_the_elements_for_which_the_function_is_falsy(enumerable_dict):
+    result = enumerable_dict.reject(value_larger_than_one)
+    assert isinstance(result, EnumerableDict)
+    assert result == {"a": 1}
+
+
+def test_reject_without_a_function_returns_an_enumerator(enumerable_dict):
+    enumerator = enumerable_dict.reject()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+
+
 def test_select_returns_the_elements_for_which_the_function_is_truthy(enumerable_dict):
-    result = enumerable_dict.select(lambda key, value: value > 1)
+    result = enumerable_dict.select(value_larger_than_one)
     assert isinstance(result, EnumerableDict)
     assert result == {"b": 2, "c": 3}
 
@@ -113,3 +125,7 @@ def test_take_when_empty(empty_dict):
     result = empty_dict.take(5)
     assert isinstance(result, EnumerableList)
     assert result == []
+
+
+def value_larger_than_one(key, value):
+    return value > 1

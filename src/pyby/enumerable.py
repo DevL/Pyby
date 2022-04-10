@@ -52,18 +52,6 @@ class Enumerable(RObject):
         """
         return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
 
-    @configure()
-    def select(self, into, to_tuple, func):
-        """
-        Returns the elements for which the function is truthy.
-        Without a function, returns an enumerator by calling to_enum.
-
-        Also available as the alias `filter`.
-        """
-        return into(item for item in self.__each__() if func(*to_tuple(item)))
-
-    filter = select  # Alias for the select method
-
     @configure(use_to_tuple=False, enumerator_without_func=False)
     def first(self, into, number=None):
         """
@@ -86,7 +74,26 @@ class Enumerable(RObject):
         """
         return into(func(*to_tuple(item)) for item in self.__each__())
 
+    @configure()
+    def reject(self, into, to_tuple, func):
+        """
+        Returns the elements for which the function is falsy.
+        Without a function, returns an enumerator by calling to_enum.
+        """
+        return into(item for item in self.__each__() if not func(*to_tuple(item)))
+
+    @configure()
+    def select(self, into, to_tuple, func):
+        """
+        Returns the elements for which the function is truthy.
+        Without a function, returns an enumerator by calling to_enum.
+
+        Also available as the alias `filter`.
+        """
+        return into(item for item in self.__each__() if func(*to_tuple(item)))
+
     collect = map  # Alias for the map method
+    filter = select  # Alias for the select method
 
     def take(self, number):
         """

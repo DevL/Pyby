@@ -18,6 +18,7 @@ class EnumerableDict(Enumerable, UserDict):
     def __into__(self, method_name):
         return {
             "compact": self.__class__,
+            "reject": self.__class__,
             "select": self.__class__,
         }.get(method_name, EnumerableList)
 

@@ -92,6 +92,11 @@ Returns the first element or a given number of elements.
 With no argument, returns the first element, or `None` if there is none.  
 With a number of elements requested, returns as many elements as possible.
 
+#### [`reject`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-reject)
+
+Returns the elements for which the predicate function is falsy.  
+Without a function, returns an enumerator by calling to_enum.
+
 #### [`take`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-take)
 
 Returns the number of elements requested or as many elements as possible.

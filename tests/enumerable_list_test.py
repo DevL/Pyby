@@ -90,13 +90,13 @@ def test_first_when_empty_when_asked_for_a_number_of_elements(empty_list):
 
 
 def test_map_with_a_function_calls_it_once_for_each_item_and_returns_an_enumerable_list(numbers):
-    result = numbers.map(lambda element: element + 1)
+    result = numbers.map(increment)
     assert isinstance(result, EnumerableList)
     assert result == [2, 3, 4]
 
 
 def test_map_with_a_sequence_containing_a_tuple(list_with_a_tuple):
-    result = list_with_a_tuple.map(lambda value: value is not None)
+    result = list_with_a_tuple.map(not_none)
     assert isinstance(result, EnumerableList)
     assert result == [True, True, True]
 
@@ -107,8 +107,26 @@ def test_map_without_a_function_returns_an_enumerator(letters):
     assert enumerator.map(pass_through) == ["a", "b", "c"]
 
 
+def test_reject_returns_the_elements_for_which_the_function_is_falsy(numbers):
+    result = numbers.reject(larger_than_one)
+    assert isinstance(result, EnumerableList)
+    assert result == [1]
+
+
+def test_reject_without_a_function_returns_an_enumerator(letters):
+    enumerator = letters.reject()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == ["a", "b", "c"]
+
+
+def test_reject_with_a_sequence_containing_a_tuple(list_with_a_tuple):
+    result = list_with_a_tuple.reject(not_none)
+    assert isinstance(result, EnumerableList)
+    assert result == []
+
+
 def test_select_returns_the_elements_for_which_the_function_is_truthy(numbers):
-    result = numbers.select(lambda element: element > 1)
+    result = numbers.select(larger_than_one)
     assert isinstance(result, EnumerableList)
     assert result == [2, 3]
 
@@ -120,7 +138,7 @@ def test_select_without_a_function_returns_an_enumerator(letters):
 
 
 def test_select_with_a_sequence_containing_a_tuple(list_with_a_tuple):
-    result = list_with_a_tuple.select(lambda value: value is not None)
+    result = list_with_a_tuple.select(not_none)
     assert isinstance(result, EnumerableList)
     assert result == ["a", ("b", None), "c"]
 
@@ -141,3 +159,15 @@ def test_take_when_empty(empty_list):
     result = empty_list.take(5)
     assert isinstance(result, EnumerableList)
     assert result == []
+
+
+def increment(element):
+    return element + 1
+
+
+def larger_than_one(element):
+    return element > 1
+
+
+def not_none(element):
+    return element is not None

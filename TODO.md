@@ -14,7 +14,7 @@
 - [ ] flat_map / collect_concat (no args)
 - [ ] flat_map / collect_concat (callable arg)
 - [ ] inject/reduce
-- [ ] reject
+- [x] reject
 - [x] select/filter
 - [x] take
 - [ ] uniq (no args)
