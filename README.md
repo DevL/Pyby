@@ -101,6 +101,18 @@ Must be implemented by the subclass due to cyclical dependencies.
 
 ---
 
+### [`EnumerableDict`](https://ruby-doc.org/core-3.1.1/Hash.html) (enumerable_dict.py)
+
+A subclass of `Enumerable` that mimics some of Ruby's `Hash` while still behaving like a Python `dict`.
+
+---
+
+### [`EnumerableList`](https://ruby-doc.org/core-3.1.1/Array.html) (enumerable_list.py)
+
+A subclass of `Enumerable` that mimics some of Ruby's `Array` while still behaving like a Python `list`.
+
+---
+
 ### [`Enumerator`](https://ruby-doc.org/core-3.1.1/Enumerator.html) (enumerator.py)
 
 A class which allows both internal and external iteration.  

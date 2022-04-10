@@ -31,5 +31,4 @@ _Pyby_ is a portmanteau of _Python_ and _Ruby_. After all, it is a reimplementat
 
 ## Further information
 
-See the [PyPI package page](https://pypi.org/project/pyby)
-or the [Github repository](https://github.com/DevL/Pyby).
+See the [PyPI package page](https://pypi.org/project/pyby) or the [Github repository](https://github.com/DevL/Pyby).
