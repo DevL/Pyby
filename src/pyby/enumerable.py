@@ -2,6 +2,11 @@ import functools
 from itertools import islice
 from .object import RObject
 
+EMPTY_REDUCE_ERRORS = [
+    "reduce() of empty sequence with no initial value",
+    "reduce() of empty iterable with no initial value",
+]
+
 
 class Enumerable(RObject):
     """
@@ -89,7 +94,7 @@ class Enumerable(RObject):
             else:
                 return functools.reduce(args[1], self.__each__(), args[0])
         except TypeError as error:
-            if error.args[0] == "reduce() of empty sequence with no initial value":
+            if error.args[0] in EMPTY_REDUCE_ERRORS:
                 return None
             else:
                 raise
