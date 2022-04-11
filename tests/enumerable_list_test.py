@@ -97,6 +97,14 @@ def test_inject_with_initial_value(numbers):
     assert numbers.inject(4, lambda acc, element: acc + element) == 10
 
 
+def test_inject_when_empty(empty_list):
+    assert empty_list.inject(lambda acc, element: acc + element) is None
+
+
+def test_inject_when_empty_with_initial_value(empty_list):
+    assert empty_list.inject(0, lambda acc, element: acc + element) == 0
+
+
 def test_map_with_a_function_calls_it_once_for_each_item_and_returns_an_enumerable_list(numbers):
     result = numbers.map(increment)
     assert isinstance(result, EnumerableList)

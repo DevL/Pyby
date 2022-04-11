@@ -81,6 +81,14 @@ def test_inject_with_initial_value(enumerable_dict):
     assert enumerable_dict.inject(4, lambda acc, kv_pair: acc + kv_pair[1]) == 10
 
 
+def test_inject_when_empty(empty_dict):
+    assert empty_dict.inject(lambda acc, kv_pair: acc + kv_pair[1]) is None
+
+
+def test_inject_when_empty_with_initial_value(empty_dict):
+    assert empty_dict.inject(0, lambda acc, kv_pair: acc + kv_pair[1]) == 0
+
+
 def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
     result = enumerable_dict.map(lambda key, value: (key.upper(), value + 1))
     assert isinstance(result, EnumerableList)

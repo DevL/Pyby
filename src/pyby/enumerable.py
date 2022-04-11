@@ -83,10 +83,16 @@ class Enumerable(RObject):
 
         Also available as the alias `reduce`.
         """
-        if len(args) == 1:
-            return functools.reduce(args[0], self.__each__())
-        else:
-            return functools.reduce(args[1], self.__each__(), args[0])
+        try:
+            if len(args) == 1:
+                return functools.reduce(args[0], self.__each__())
+            else:
+                return functools.reduce(args[1], self.__each__(), args[0])
+        except TypeError as error:
+            if error.args[0] == "reduce() of empty sequence with no initial value":
+                return None
+            else:
+                raise
 
     @configure()
     def reject(self, into, to_tuple, func):
