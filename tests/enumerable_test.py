@@ -17,6 +17,7 @@ def enumerable():
         "filter",
         "first",
         "map",
+        "reject",
         "select",
         "take",
         "to_enum",
