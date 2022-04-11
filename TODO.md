@@ -17,7 +17,7 @@
 - [x] first (n elements)
 - [ ] flat_map / collect_concat (no args)
 - [ ] flat_map / collect_concat (callable arg)
-- [ ] inject/reduce
+- [x] inject/reduce
 - [x] reject
 - [x] select/filter
 - [x] take

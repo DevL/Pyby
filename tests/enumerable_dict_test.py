@@ -73,6 +73,14 @@ def test_first_when_empty_when_asked_for_a_number_of_elements(empty_dict):
     assert result == []
 
 
+def test_inject(enumerable_dict):
+    assert enumerable_dict.inject(lambda acc, kv_pair: ("sum", acc[1] + kv_pair[1])) == ("sum", 6)
+
+
+def test_inject_with_initial_value(enumerable_dict):
+    assert enumerable_dict.inject(4, lambda acc, kv_pair: acc + kv_pair[1]) == 10
+
+
 def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
     result = enumerable_dict.map(lambda key, value: (key.upper(), value + 1))
     assert isinstance(result, EnumerableList)

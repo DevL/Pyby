@@ -16,7 +16,9 @@ def enumerable():
         "compact",
         "filter",
         "first",
+        "inject",
         "map",
+        "reduce",
         "reject",
         "select",
         "take",
@@ -27,7 +29,14 @@ def test_public_interface(enumerable, method_name):
     assert enumerable.respond_to(method_name)
 
 
-@pytest.mark.parametrize("alias, method_name", [("collect", "map"), ("filter", "select")])
+@pytest.mark.parametrize(
+    "alias, method_name",
+    [
+        ("collect", "map"),
+        ("filter", "select"),
+        ("reduce", "inject"),
+    ],
+)
 def test_aliases(enumerable, alias, method_name):
     assert getattr(enumerable, alias) == getattr(enumerable, method_name)
 

@@ -1,4 +1,4 @@
-from functools import wraps
+import functools
 from itertools import islice
 from .object import RObject
 
@@ -20,7 +20,7 @@ class Enumerable(RObject):
         """
 
         def decorator(method):
-            @wraps(method)
+            @functools.wraps(method)
             def wrapper(self, *args, **kwargs):
                 if enumerator_without_func and not (args or kwargs):
                     return self.to_enum()
@@ -74,6 +74,20 @@ class Enumerable(RObject):
         """
         return into(func(*to_tuple(item)) for item in self.__each__())
 
+    def inject(self, *args):
+        """
+        Performs a reduction operation much like `functools.reduce`.
+        If called with a single argument, treats it as the reduction function.
+        If called with two arguments, the first is treated as the initial value
+        for the reduction and the second argument acts as the reduction function.
+
+        Also available as the alias `reduce`.
+        """
+        if len(args) == 1:
+            return functools.reduce(args[0], self.__each__())
+        else:
+            return functools.reduce(args[1], self.__each__(), args[0])
+
     @configure()
     def reject(self, into, to_tuple, func):
         """
@@ -92,9 +106,6 @@ class Enumerable(RObject):
         """
         return into(item for item in self.__each__() if func(*to_tuple(item)))
 
-    collect = map  # Alias for the map method
-    filter = select  # Alias for the select method
-
     def take(self, number):
         """
         Returns the number of elements requested or as many elements as possible.
@@ -107,6 +118,11 @@ class Enumerable(RObject):
         Must be implemented by a subclass.
         """
         raise NotImplementedError("'to_enum' must be implemented by a subclass")
+
+    # Method aliases
+    collect = map
+    filter = select
+    reduce = inject
 
     def __each__(self):
         """
