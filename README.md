@@ -14,7 +14,8 @@ A library implementing certain Ruby-like behaviours in Python.
 
 ## Current Functionality
 
-The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.  
+The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.
+
 Currently, Ruby version 3.1.1 is used as a basis for the mimiced functionality.
 
 ### [`RObject`](https://ruby-doc.org/core-3.1.1/Object.html) (object.py)
