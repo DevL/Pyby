@@ -113,7 +113,7 @@ Returns the number of elements requested or as many elements as possible.
 #### [`to_enum`](https://ruby-doc.org/core-3.1.1/Object.html#method-i-to_enum)
 
 Returns an `Enumerator` for the enumerable.  
-Must be implemented by the subclass due to cyclical dependencies.
+Requires an iterable subclass.
 
 ---
 

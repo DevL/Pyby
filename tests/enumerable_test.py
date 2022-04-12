@@ -46,8 +46,8 @@ def test_each_with_function_requires___each___to_be_implemented_by_a_subclass(en
         enumerable.each(pass_through)
 
 
-def test_each_without_a_function_requires_to_enum_to_be_implemented_by_a_subclass(enumerable):
-    with pytest.raises(NotImplementedError, match="'to_enum' must be implemented by a subclass"):
+def test_each_without_a_function_requires_an_iterable_subclass_as_to_enum_is_called(enumerable):
+    with pytest.raises(TypeError, match="'Enumerable' object is not iterable"):
         enumerable.each()
 
 

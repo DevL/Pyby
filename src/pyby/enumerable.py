@@ -1,4 +1,5 @@
 import functools
+from importlib import import_module
 from itertools import islice
 from .object import RObject
 
@@ -126,9 +127,9 @@ class Enumerable(RObject):
     def to_enum(self):
         """
         Returns an enumerator for the enumerable.
-        Must be implemented by a subclass.
+        Must be implemented by an iterable subclass.
         """
-        raise NotImplementedError("'to_enum' must be implemented by a subclass")
+        return import_module("pyby.enumerator").Enumerator(self)
 
     # Method aliases
     collect = map
