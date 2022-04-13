@@ -4,8 +4,8 @@ from itertools import islice
 from .object import RObject
 
 EMPTY_REDUCE_ERRORS = [
-    "reduce() of empty sequence with no initial value",
     "reduce() of empty iterable with no initial value",
+    "reduce() of empty sequence with no initial value",
 ]
 
 
