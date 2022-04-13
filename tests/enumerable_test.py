@@ -1,5 +1,5 @@
 import pytest
-from pyby import Enumerable
+from pyby import Enumerable, EnumerableList
 from .test_helpers import pass_through
 
 
@@ -51,6 +51,9 @@ def test_each_without_a_function_requires_an_iterable_subclass_as_to_enum_is_cal
         enumerable.each()
 
 
-def test_requires___into___to_be_implemented_by_a_subclass(enumerable):
-    with pytest.raises(NotImplementedError, match="'__into__' must be implemented by a subclass"):
-        enumerable.first(1)
+def test____into___imports_and_returns_EnumerableList(enumerable):
+    enumerable.__into__("each") == EnumerableList
+
+
+def test____to_tuple___wraps_the_item_in_a_tuple(enumerable):
+    enumerable.__to_tuple__("some value") == ("some value",)

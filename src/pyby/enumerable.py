@@ -147,15 +147,15 @@ class Enumerable(RObject):
         """
         Returns a constructor that accepts an iterable for the given method name.
         Used by the configure decorator internally.
-        Must be implemented by a subclass.
+        May be overridden by a subclass.
         """
-        raise NotImplementedError("'__into__' must be implemented by a subclass")
+        return import_module("pyby.enumerable_list").EnumerableList
 
     def __to_tuple__(self, item):
         """
         Transforms a single element of an enumerable to a tuple.
         Used internally by the configure decorator to uniformly handle
         predicate and mapping functions with a higher arity than one.
-        May be overriden by a subclass.
+        May be overridden by a subclass.
         """
         return (item,)

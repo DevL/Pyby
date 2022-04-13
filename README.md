@@ -12,6 +12,14 @@ A library implementing certain Ruby-like behaviours in Python.
 
 **NB:** This is heavily under development and subject to change. Expect breaking changes until the 1.0.0 release.
 
+## Installation
+
+Install the `pyby` package from [PyPI](https://pypi.org/project/pyby).
+
+```sh
+pip install pyby
+```
+
 ## Current Functionality
 
 The links in the list of available modules, classes, methods, and functions below link to the corresponding Ruby documentation.
@@ -36,9 +44,12 @@ If the property is not callable, and no arguments are specified, the property is
 
 ### [`Enumerable`](https://ruby-doc.org/core-3.1.1/Enumerable.html) (enumerable.py)
 
-A base class meant to be subclassed by an iterable.  
-The iterable must implement `__each__`, `__into__`, and `to_enum` in order to unlock the rest of the functionality.
-In addition, the iterable may implement `__to_tuple__` in order to support predicate and mapping functions with a higher arity than one. A prime example would be `EnumerableDict` in combination with `select` where the 
+A base class meant to be subclassed by an iterable (henceforth referred to as an enumerable).  
+The enumerable must implement `__each__` in order to unlock the rest of the functionality.
+
+To return something else than an `EnumerableList`, the enumerable can override `__into__`. For example, `EnumerableDict` returns another `EnumerableDict` when its `compact` method is called.
+
+In addition, the enumerable may override `__to_tuple__` in order to support predicate and mapping functions with a higher arity than one. A prime example would be `EnumerableDict` in combination with `select` where the predicate function should expect the key-value pair split into two arguments rather than a single tuple. In this case, `__to_tuple__` should return the key-value pair as a two-element tuple. 
 
 #### `__each__` (internal)
 
@@ -48,12 +59,14 @@ Must be implemented by the subclass.
 #### `__into__` (internal)
 
 Returns a constructor that accepts an iterable for the given method name.  
-Must be implemented by the subclass.
+By default imports and returns `EnumerableList`.  
+May be implemented by the subclass.
 
 #### `__to_tuple__` (internal)
 
 Transforms a single element of an enumerable to a tuple.  
 Used internally to uniformly handle predicate and mapping functions with a higher arity than one.  
+By default returns the item wrapped in a single-element tuple.  
 May be implemented by the subclass.
 
 #### `configure` (internal)
