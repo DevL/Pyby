@@ -1,4 +1,5 @@
 from .enumerable import Enumerable
+from .enumerable_list import EnumerableList
 
 NO_HEAD = object()
 
@@ -56,7 +57,7 @@ class Enumerator(Enumerable):
         if self.delegate:
             return self.iterable.__into__(method_name)
         else:
-            return list
+            return EnumerableList
 
     def __iter__(self):
         return self.__each__()

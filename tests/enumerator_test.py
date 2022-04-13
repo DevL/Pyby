@@ -1,5 +1,5 @@
 import pytest
-from pyby import Enumerable, EnumerableDict, Enumerator
+from pyby import Enumerable, EnumerableDict, EnumerableList, Enumerator
 from .test_helpers import pass_through
 
 
@@ -108,7 +108,8 @@ def test_the_return_type_of_an_enumerable_iterable_is_used():
     assert result == {"a": 1, "c": 3, None: 4}
 
 
-def test_the_return_type_defaults_to_a_list_for_normal_iterables():
+def test_the_return_type_defaults_to_an_EnumerableList_for_normal_iterables():
     enum = Enumerator({"a": 1, "b": None, "c": 3, None: 4})
     result = enum.compact()
+    assert isinstance(result, EnumerableList)
     assert result == ["a", "b", "c"]
