@@ -67,13 +67,13 @@ class Enumerable(RObject):
         """
         Returns an enumerable of the elements with None values removed.
         """
-        return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
+        return into(self.__select__(lambda *args: args[-1] is not None, to_tuple))
 
     @configure(use_into=False)
     def find(self, to_tuple, func_or_not_found, func=NOT_USED):
         predicate = func_or_not_found if func == NOT_USED else func
         try:
-            return next(item for item in self.__each__() if predicate(*to_tuple(item)))
+            return next(self.__select__(predicate, to_tuple))
         except StopIteration:
             if func == NOT_USED:
                 return None
@@ -112,23 +112,23 @@ class Enumerable(RObject):
             else:
                 raise
 
-    @configure()
-    def reject(self, into, to_tuple, func):
+    @configure(use_into=False, use_to_tuple=False)
+    def reject(self, predicate):
         """
         Returns the elements for which the function is falsy.
         Without a function, returns an enumerator by calling to_enum.
         """
-        return into(item for item in self.__each__() if not func(*to_tuple(item)))
+        return self.select(inverse(predicate))
 
     @configure()
-    def select(self, into, to_tuple, func):
+    def select(self, into, to_tuple, predicate):
         """
         Returns the elements for which the function is truthy.
         Without a function, returns an enumerator by calling to_enum.
 
         Also available as the alias `filter`.
         """
-        return into(item for item in self.__each__() if func(*to_tuple(item)))
+        return into(self.__select__(predicate, to_tuple))
 
     def take(self, number):
         """
@@ -163,6 +163,12 @@ class Enumerable(RObject):
         """
         return import_module("pyby.enumerable_list").EnumerableList
 
+    def __select__(self, predicate, to_tuple):
+        """
+        Used internally by find, reject, select et al.
+        """
+        return (item for item in self.__each__() if predicate(*to_tuple(item)))
+
     def __to_tuple__(self, item):
         """
         Transforms a single element of an enumerable to a tuple.
@@ -171,3 +177,13 @@ class Enumerable(RObject):
         May be overridden by a subclass.
         """
         return (item,)
+
+
+def inverse(predicate):
+    """
+    Reverses the logic of a predicate function.
+
+    >>> inverse(lambda x, y: x > y)(0, 1)
+    True
+    """
+    return lambda *args: not predicate(*args)
