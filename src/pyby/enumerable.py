@@ -7,6 +7,7 @@ EMPTY_REDUCE_ERRORS = [
     "reduce() of empty iterable with no initial value",
     "reduce() of empty sequence with no initial value",
 ]
+NOT_USED = object()
 
 
 class Enumerable(RObject):
@@ -80,7 +81,7 @@ class Enumerable(RObject):
         """
         return into(func(*to_tuple(item)) for item in self.__each__())
 
-    def inject(self, *args):
+    def inject(self, func_or_initial, func=NOT_USED):
         """
         Performs a reduction operation much like `functools.reduce`.
         If called with a single argument, treats it as the reduction function.
@@ -90,10 +91,10 @@ class Enumerable(RObject):
         Also available as the alias `reduce`.
         """
         try:
-            if len(args) == 1:
-                return functools.reduce(args[0], self.__each__())
+            if func == NOT_USED:
+                return functools.reduce(func_or_initial, self.__each__())
             else:
-                return functools.reduce(args[1], self.__each__(), args[0])
+                return functools.reduce(func, self.__each__(), func_or_initial)
         except TypeError as error:
             if error.args[0] in EMPTY_REDUCE_ERRORS:
                 return None
