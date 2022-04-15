@@ -28,6 +28,18 @@ def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
     assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
+def test_collect_with_a_function_returns_an_enumerable_list(enumerable_dict):
+    result = enumerable_dict.collect(lambda key, value: (key.upper(), value + 1))
+    assert isinstance(result, EnumerableList)
+    assert result == [("A", 2), ("B", 3), ("C", 4)]
+
+
+def test_collect_without_a_function_returns_an_enumerator(enumerable_dict):
+    enumerator = enumerable_dict.collect()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
+
+
 def test_compact():
     enumerable_dict = EnumerableDict(a=1, b=2, c=3, d=None)
     result = enumerable_dict.compact()
@@ -87,18 +99,6 @@ def test_inject_when_empty(empty_dict):
 
 def test_inject_when_empty_with_initial_value(empty_dict):
     assert empty_dict.inject(0, lambda acc, kv_pair: acc + kv_pair[1]) == 0
-
-
-def test_map_with_a_function_returns_an_enumerable_list(enumerable_dict):
-    result = enumerable_dict.map(lambda key, value: (key.upper(), value + 1))
-    assert isinstance(result, EnumerableList)
-    assert result == [("A", 2), ("B", 3), ("C", 4)]
-
-
-def test_map_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.map()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_reject_returns_the_elements_for_which_the_function_is_falsy(enumerable_dict):

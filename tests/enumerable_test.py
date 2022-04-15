@@ -32,7 +32,7 @@ def test_public_interface(enumerable, method_name):
 @pytest.mark.parametrize(
     "alias, method_name",
     [
-        ("collect", "map"),
+        ("map", "collect"),
         ("filter", "select"),
         ("reduce", "inject"),
     ],

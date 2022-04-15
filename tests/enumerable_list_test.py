@@ -38,6 +38,24 @@ def test_each_without_a_function_returns_an_enumerator(letters):
     assert enumerator.map(pass_through) == ["a", "b", "c"]
 
 
+def test_collect_with_a_function_maps_over_the_items_and_returns_an_enumerable_list(numbers):
+    result = numbers.collect(increment)
+    assert isinstance(result, EnumerableList)
+    assert result == [2, 3, 4]
+
+
+def test_collect_with_a_sequence_containing_a_tuple(list_with_a_tuple):
+    result = list_with_a_tuple.collect(not_none)
+    assert isinstance(result, EnumerableList)
+    assert result == [True, True, True]
+
+
+def test_collect_without_a_function_returns_an_enumerator(letters):
+    enumerator = letters.collect()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == ["a", "b", "c"]
+
+
 def test_compact():
     enumerable_list = EnumerableList([None, "a", None, "b", "c", None])
     result = enumerable_list.compact()
@@ -103,24 +121,6 @@ def test_inject_when_empty(empty_list):
 
 def test_inject_when_empty_with_initial_value(empty_list):
     assert empty_list.inject(0, lambda acc, element: acc + element) == 0
-
-
-def test_map_with_a_function_calls_it_once_for_each_item_and_returns_an_enumerable_list(numbers):
-    result = numbers.map(increment)
-    assert isinstance(result, EnumerableList)
-    assert result == [2, 3, 4]
-
-
-def test_map_with_a_sequence_containing_a_tuple(list_with_a_tuple):
-    result = list_with_a_tuple.map(not_none)
-    assert isinstance(result, EnumerableList)
-    assert result == [True, True, True]
-
-
-def test_map_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.map()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
 
 
 def test_reject_returns_the_elements_for_which_the_function_is_falsy(numbers):

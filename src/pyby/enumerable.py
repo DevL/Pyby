@@ -52,6 +52,16 @@ class Enumerable(RObject):
         for item in self.__each__():
             func(item)
 
+    @configure()
+    def collect(self, into, to_tuple, func):
+        """
+        Returns the result of mapping a function over the elements.
+        The mapping function takes a single argument for sequences and two arguments for mappings.
+
+        Also available as the alias `map`.
+        """
+        return into(func(*to_tuple(item)) for item in self.__each__())
+
     @configure(enumerator_without_func=False)
     def compact(self, into, to_tuple):
         """
@@ -70,16 +80,6 @@ class Enumerable(RObject):
             return next(self.__each__(), None)
         else:
             return into(islice(self.__each__(), number))
-
-    @configure()
-    def map(self, into, to_tuple, func):
-        """
-        Returns the result of mapping a function over the elements.
-        The mapping function takes a single argument for sequences and two arguments for mappings.
-
-        Also available as the alias `collect`.
-        """
-        return into(func(*to_tuple(item)) for item in self.__each__())
 
     def inject(self, func_or_initial, func=NOT_USED):
         """
@@ -133,7 +133,7 @@ class Enumerable(RObject):
         return import_module("pyby.enumerator").Enumerator(self)
 
     # Method aliases
-    collect = map
+    map = collect
     filter = select
     reduce = inject
 
