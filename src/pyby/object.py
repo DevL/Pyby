@@ -20,7 +20,7 @@ class RObject:
     def send(self, name, *args, **kwargs):
         """
         Calls the property identified by name, passing it any arguments specified.
-        If the property is not callable and no arguments are specified, the property is instead returned.
+        If the property is not callable and no arguments are specified, the property is returned.
         """
         property_or_method = getattr(self, name)
         if args or kwargs or callable(property_or_method):
