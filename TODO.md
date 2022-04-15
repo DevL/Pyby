@@ -12,7 +12,8 @@
 - [ ] cycle (no arg)
 - [x] each (no args)
 - [x] each (callable arg)
-- [ ] find
+- [x] find
+- [x] find (if_non_proc)
 - [x] first (no args)
 - [x] first (n elements)
 - [ ] flat_map / collect_concat (no args)

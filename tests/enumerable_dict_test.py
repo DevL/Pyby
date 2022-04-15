@@ -59,6 +59,24 @@ def test_compact_when_not_containing_any_None_values(enumerable_dict):
     assert result == {"a": 1, "b": 2, "c": 3}
 
 
+def test_find(enumerable_dict):
+    assert enumerable_dict.find(value_larger_than_one) == ("b", 2)
+
+
+def test_find_when_not_found(enumerable_dict):
+    assert enumerable_dict.find(value_is_zero) is None
+
+
+def test_find_when_not_found_with_default(enumerable_dict):
+    assert enumerable_dict.find(lambda: 69, value_is_zero) == 69
+
+
+def test_find_whitout_predicate_returns_an_enumerator(enumerable_dict):
+    enumerator = enumerable_dict.find()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+
+
 def test_first(enumerable_dict):
     assert enumerable_dict.first() == ("a", 1)
 
@@ -141,6 +159,10 @@ def test_take_when_empty(empty_dict):
     result = empty_dict.take(5)
     assert isinstance(result, EnumerableList)
     assert result == []
+
+
+def value_is_zero(key, value):
+    return value == 0
 
 
 def value_larger_than_one(key, value):

@@ -96,9 +96,19 @@ Without a function, returns an enumerator by calling `to_enum`.
 #### [`filter`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-filter), [`select`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-select)
 
 Returns the elements for which the predicate function is truthy.  
-Without a function, returns an enumerator by calling to_enum.
-
 The predicate function takes a single argument for sequences and two arguments for mappings.
+
+Without a predicate function, returns an enumerator by calling to_enum.
+
+
+#### [`find`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-find)
+
+Returns the first element for which the predicate function is truthy. If no matching element is found, returns `None`, unless a default callback has been provided, in which turn that callback function will be invoked and its result returned. The predicate function takes a single argument for sequences and two arguments for mappings.
+
+If called with a single argument, treats it as the predicate function.  
+If called with two arguments, the first is treated as the default callback function and the second argument acts as the predicate function.
+
+Without a predicate function, returns an enumerator by calling to_enum.
 
 #### [`inject`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-inject), [`reduce`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-reduce)
 
@@ -117,7 +127,8 @@ With a number of elements requested, returns as many elements as possible.
 #### [`reject`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-reject)
 
 Returns the elements for which the predicate function is falsy.  
-Without a function, returns an enumerator by calling to_enum.
+
+Without a predicate function, returns an enumerator by calling to_enum.
 
 #### [`take`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-take)
 

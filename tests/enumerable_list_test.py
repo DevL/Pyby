@@ -81,6 +81,24 @@ def test_compact_with_a_sequence_containing_a_tuple(list_with_a_tuple):
     assert result == ["a", ("b", None), "c"]
 
 
+def test_find(numbers):
+    assert numbers.find(larger_than_one) == 2
+
+
+def test_find_when_not_found(numbers):
+    assert numbers.find(is_zero) is None
+
+
+def test_find_when_not_found_with_default(numbers):
+    assert numbers.find(lambda: 69, is_zero) == 69
+
+
+def test_find_whitout_predicate_returns_an_enumerator(letters):
+    enumerator = letters.find()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == ["a", "b", "c"]
+
+
 def test_first(numbers):
     assert numbers.first() == 1
 
@@ -179,6 +197,10 @@ def test_take_when_empty(empty_list):
 
 def increment(element):
     return element + 1
+
+
+def is_zero(element):
+    return element == 0
 
 
 def larger_than_one(element):

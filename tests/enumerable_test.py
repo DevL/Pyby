@@ -15,6 +15,7 @@ def enumerable():
         "collect",
         "compact",
         "filter",
+        "find",
         "first",
         "inject",
         "map",

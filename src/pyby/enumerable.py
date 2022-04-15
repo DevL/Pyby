@@ -69,6 +69,17 @@ class Enumerable(RObject):
         """
         return into(item for item in self.__each__() if to_tuple(item)[-1] is not None)
 
+    @configure(use_into=False)
+    def find(self, to_tuple, func_or_not_found, func=NOT_USED):
+        predicate = func_or_not_found if func == NOT_USED else func
+        try:
+            return next(item for item in self.__each__() if predicate(*to_tuple(item)))
+        except StopIteration:
+            if func == NOT_USED:
+                return None
+            else:
+                return func_or_not_found()
+
     @configure(use_to_tuple=False, enumerator_without_func=False)
     def first(self, into, number=None):
         """
