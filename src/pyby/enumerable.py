@@ -75,10 +75,7 @@ class Enumerable(RObject):
         try:
             return next(self.__select__(predicate, to_tuple))
         except StopIteration:
-            if func == NOT_USED:
-                return None
-            else:
-                return func_or_not_found()
+            return None if func == NOT_USED else func_or_not_found()
 
     @configure(use_to_tuple=False, enumerator_without_func=False)
     def first(self, into, number=None):
