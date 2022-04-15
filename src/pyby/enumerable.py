@@ -62,12 +62,11 @@ class Enumerable(RObject):
         """
         return into(func(*to_tuple(item)) for item in self.__each__())
 
-    @configure(enumerator_without_func=False)
-    def compact(self, into, to_tuple):
+    def compact(self):
         """
         Returns an enumerable of the elements with None values removed.
         """
-        return into(self.__select__(lambda *args: args[-1] is not None, to_tuple))
+        return self.select(lambda *args: args[-1] is not None)
 
     @configure(use_into=False)
     def find(self, to_tuple, func_or_not_found, func=NOT_USED):
@@ -82,7 +81,7 @@ class Enumerable(RObject):
         """
         Returns the first element or a given number of elements.
         With no argument, returns the first element, or `None` if there is none.
-        With an number of elements requested, returns as many elements as possible.
+        With a number of elements requested, returns as many elements as possible.
         """
         if number is None:
             return next(self.__each__(), None)
@@ -162,7 +161,7 @@ class Enumerable(RObject):
 
     def __select__(self, predicate, to_tuple):
         """
-        Used internally by find, reject, select et al.
+        Used internally by compact, find, reject, select et al.
         """
         return (item for item in self.__each__() if predicate(*to_tuple(item)))
 
