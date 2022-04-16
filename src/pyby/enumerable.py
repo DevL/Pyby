@@ -70,20 +70,20 @@ class Enumerable(RObject):
 
     @configure(use_into=False)
     def find(self, to_tuple, func_or_not_found, func=NOT_USED):
-        predicate = func_or_not_found if func == NOT_USED else func
+        predicate = func_or_not_found if func is NOT_USED else func
         try:
             return next(self.__select__(predicate, to_tuple))
         except StopIteration:
             return None if func == NOT_USED else func_or_not_found()
 
     @configure(use_to_tuple=False, enumerator_without_func=False)
-    def first(self, into, number=None):
+    def first(self, into, number=NOT_USED):
         """
         Returns the first element or a given number of elements.
         With no argument, returns the first element, or `None` if there is none.
         With a number of elements requested, returns as many elements as possible.
         """
-        if number is None:
+        if number is NOT_USED:
             return next(self.__each__(), None)
         else:
             return into(islice(self.__each__(), number))
@@ -98,7 +98,7 @@ class Enumerable(RObject):
         Also available as the alias `reduce`.
         """
         try:
-            if func == NOT_USED:
+            if func is NOT_USED:
                 return functools.reduce(func_or_initial, self.__each__())
             else:
                 return functools.reduce(func, self.__each__(), func_or_initial)
