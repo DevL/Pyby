@@ -11,6 +11,9 @@ NOT_USED = object()
 
 
 def always_true(*args):
+    """
+    A predicate function that is always truthy.
+    """
     return True
 
 
@@ -74,9 +77,7 @@ class Enumerable(RObject):
         if callable(compare_to):
             return len(self.select(compare_to))
         else:
-            return len(
-                list(self.__select__(lambda item: item == compare_to, Enumerable().__to_tuple__))
-            )
+            return list(self.__each__()).count(compare_to)
 
     @configure(use_into=False, use_to_tuple=False)
     def each(self, func):
@@ -180,7 +181,7 @@ class Enumerable(RObject):
 
     def __select__(self, predicate, to_tuple):
         """
-        Used internally by compact, find, reject, select et al.
+        Used internally by find, select et al.
         """
         return (item for item in self.__each__() if predicate(*to_tuple(item)))
 
