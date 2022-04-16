@@ -179,6 +179,9 @@ def inverse(predicate):
     """
     Reverses the logic of a predicate function.
 
+    >>> inverse(bool)(True)
+    False
+
     >>> inverse(lambda x, y: x > y)(0, 1)
     True
     """
