@@ -27,17 +27,6 @@ def test_repr(letters):
     assert repr(letters) == "EnumerableList(['a', 'b', 'c'])"
 
 
-def test_each_with_a_function_calls_it_once_for_each_item(letters, seen):
-    letters.each(seen)
-    assert seen == ["a", "b", "c"]
-
-
-def test_each_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.each()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
-
-
 def test_collect_with_a_function_maps_over_the_items_and_returns_an_enumerable_list(numbers):
     result = numbers.collect(increment)
     assert isinstance(result, EnumerableList)
@@ -79,6 +68,29 @@ def test_compact_with_a_sequence_containing_a_tuple(list_with_a_tuple):
     result = list_with_a_tuple.compact()
     assert isinstance(result, EnumerableList)
     assert result == ["a", ("b", None), "c"]
+
+
+def test_count(numbers):
+    assert numbers.count() == 3
+
+
+def test_count_with_a_non_callable_argument(numbers):
+    assert numbers.count(2) == 1
+
+
+def test_count_with_a_callable_argument(numbers):
+    assert numbers.count(larger_than_one) == 2
+
+
+def test_each_with_a_function_calls_it_once_for_each_item(letters, seen):
+    letters.each(seen)
+    assert seen == ["a", "b", "c"]
+
+
+def test_each_without_a_function_returns_an_enumerator(letters):
+    enumerator = letters.each()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(pass_through) == ["a", "b", "c"]
 
 
 def test_find(numbers):

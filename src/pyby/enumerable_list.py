@@ -2,7 +2,7 @@ from collections import UserList
 from .enumerable import Enumerable
 
 
-class EnumerableList(UserList, Enumerable):
+class EnumerableList(Enumerable, UserList):
     """
     A list behaving like an Enumerable.
     """

@@ -3,9 +3,9 @@
 - [x] collect/map (no args)
 - [x] collect/map (callable args)
 - [x] compact
-- [ ] count (no args)
-- [ ] count (non-callable arg)
-- [ ] count (callable arg)
+- [x] count (no args)
+- [x] count (non-callable arg)
+- [x] count (callable arg)
 - [ ] cycle (positive number)
 - [ ] cycle (zero or negative number)
 - [ ] cycle (no number)

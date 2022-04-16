@@ -3,7 +3,7 @@ from .enumerable import Enumerable
 from .enumerable_list import EnumerableList
 
 
-class EnumerableDict(UserDict, Enumerable):
+class EnumerableDict(Enumerable, UserDict):
     """
     A dict behaving like an Enumerable.
     """

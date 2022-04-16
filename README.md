@@ -85,6 +85,14 @@ The mapping function takes a single argument for sequences and two arguments for
 
 Returns an enumerable of the elements with None values removed.
 
+#### [`count`](https://ruby-doc.org/core-3.1.1/Enumerable.html#method-i-count)
+
+Returns the number of elements in the enumerable.
+
+Optionally accepts an argument.  
+Given a non-callable argument, counts the number of equivalent elements.  
+Given a callable predicate, counts the elements for which the predicate is truthy.
+
 #### [`each`](https://ruby-doc.org/core-3.1.1/Enumerable.html#module-Enumerable-label-Enumerable+in+Ruby+Core+Classes)
 
 Given a function, calls the function once for each item in the enumerable.  

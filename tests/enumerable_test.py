@@ -14,6 +14,7 @@ def enumerable():
         "each",
         "collect",
         "compact",
+        "count",
         "filter",
         "find",
         "first",

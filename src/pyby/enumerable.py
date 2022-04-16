@@ -10,6 +10,10 @@ EMPTY_REDUCE_ERRORS = [
 NOT_USED = object()
 
 
+def always_true(*args):
+    return True
+
+
 class Enumerable(RObject):
     """
     Base class for collection classes mimicing some of Ruby's Enumerable module.
@@ -43,15 +47,6 @@ class Enumerable(RObject):
 
         return decorator
 
-    @configure(use_into=False, use_to_tuple=False)
-    def each(self, func):
-        """
-        Given a function, calls the function once for each item in the enumerable.
-        Without a function, returns an enumerator by calling to_enum.
-        """
-        for item in self.__each__():
-            func(item)
-
     @configure()
     def collect(self, into, to_tuple, func):
         """
@@ -67,6 +62,30 @@ class Enumerable(RObject):
         Returns an enumerable of the elements with None values removed.
         """
         return self.select(lambda *args: args[-1] is not None)
+
+    def count(self, compare_to=always_true):
+        """
+        Returns the number of elements in the enumerable.
+
+        Optionally accepts an argument.
+        Given a non-callable argument, counts the number of equivalent elements.
+        Given a callable predicate, counts the elements for which the predicate is truthy.
+        """
+        if callable(compare_to):
+            return len(self.select(compare_to))
+        else:
+            return len(
+                list(self.__select__(lambda item: item == compare_to, Enumerable().__to_tuple__))
+            )
+
+    @configure(use_into=False, use_to_tuple=False)
+    def each(self, func):
+        """
+        Given a function, calls the function once for each item in the enumerable.
+        Without a function, returns an enumerator by calling to_enum.
+        """
+        for item in self.__each__():
+            func(item)
 
     @configure(use_into=False)
     def find(self, to_tuple, func_or_not_found, func=NOT_USED):

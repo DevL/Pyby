@@ -17,17 +17,6 @@ def test_repr(enumerable_dict):
     assert repr(enumerable_dict) == "EnumerableDict({'a': 1, 'b': 2, 'c': 3})"
 
 
-def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen):
-    enumerable_dict.each(seen)
-    assert seen == [("a", 1), ("b", 2), ("c", 3)]
-
-
-def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.each()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
-
-
 def test_collect_with_a_function_returns_an_enumerable_list(enumerable_dict):
     result = enumerable_dict.collect(lambda key, value: (key.upper(), value + 1))
     assert isinstance(result, EnumerableList)
@@ -57,6 +46,29 @@ def test_compact_when_not_containing_any_None_values(enumerable_dict):
     result = enumerable_dict.compact()
     assert isinstance(result, EnumerableDict)
     assert result == {"a": 1, "b": 2, "c": 3}
+
+
+def test_count(enumerable_dict):
+    assert enumerable_dict.count() == 3
+
+
+def test_count_with_a_non_callable_argument(enumerable_dict):
+    assert enumerable_dict.count(("b", 2)) == 1
+
+
+def test_count_with_a_callable_argument(enumerable_dict):
+    assert enumerable_dict.count(value_larger_than_one) == 2
+
+
+def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen):
+    enumerable_dict.each(seen)
+    assert seen == [("a", 1), ("b", 2), ("c", 3)]
+
+
+def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
+    enumerator = enumerable_dict.each()
+    assert isinstance(enumerator, Enumerator)
+    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_find(enumerable_dict):
