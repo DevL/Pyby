@@ -1,4 +1,5 @@
 import pytest
+from operator import add
 from pyby import EnumerableList
 from .test_helpers import assert_enumerable_list, assert_enumerator
 
@@ -114,19 +115,19 @@ def test_first_when_empty_when_asked_for_a_number_of_elements(empty_list):
 
 
 def test_inject(numbers):
-    assert numbers.inject(lambda acc, element: acc + element) == 6
+    assert numbers.inject(add) == 6
 
 
 def test_inject_with_initial_value(numbers):
-    assert numbers.inject(4, lambda acc, element: acc + element) == 10
+    assert numbers.inject(4, add) == 10
 
 
 def test_inject_when_empty(empty_list):
-    assert empty_list.inject(lambda acc, element: acc + element) is None
+    assert empty_list.inject(add) is None
 
 
 def test_inject_when_empty_with_initial_value(empty_list):
-    assert empty_list.inject(0, lambda acc, element: acc + element) == 0
+    assert empty_list.inject(0, add) == 0
 
 
 def test_reject_returns_the_elements_for_which_the_function_is_falsy(numbers):
