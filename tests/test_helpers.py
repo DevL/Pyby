@@ -2,16 +2,19 @@ from pyby import EnumerableDict, EnumerableList, Enumerator
 
 
 def assert_enumerable_dict(actual, expected):
+    __tracebackhide__ = True
     assert isinstance(actual, EnumerableDict)
     assert actual == expected
 
 
 def assert_enumerable_list(actual, expected):
+    __tracebackhide__ = True
     assert isinstance(actual, EnumerableList)
     assert actual == expected
 
 
 def assert_enumerator(actual, expected):
+    __tracebackhide__ = True
     assert isinstance(actual, Enumerator)
     assert actual.map(pass_through) == expected
 
