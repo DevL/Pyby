@@ -12,7 +12,7 @@ pip install pyby
 
 ## Available Functionality
 
-The behaviour being mimiced is currently based on Ruby 3.1.1.
+The behaviour being mimiced is currently based on Ruby 3.1.2.
 
 <dl>
   <dt><strong>Enumerable</strong></dt>
