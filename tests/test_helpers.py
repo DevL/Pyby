@@ -1,4 +1,4 @@
-from pyby import EnumerableDict, EnumerableList
+from pyby import EnumerableDict, EnumerableList, Enumerator
 
 
 def assert_enumerable_dict(actual, expected):
@@ -9,6 +9,11 @@ def assert_enumerable_dict(actual, expected):
 def assert_enumerable_list(actual, expected):
     assert isinstance(actual, EnumerableList)
     assert actual == expected
+
+
+def assert_enumerator(actual, expected):
+    assert isinstance(actual, Enumerator)
+    assert actual.map(pass_through) == expected
 
 
 def pass_through(value, *values):

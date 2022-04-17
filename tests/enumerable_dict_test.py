@@ -1,6 +1,6 @@
 import pytest
-from pyby import EnumerableDict, Enumerator
-from .test_helpers import assert_enumerable_dict, assert_enumerable_list, pass_through
+from pyby import EnumerableDict
+from .test_helpers import assert_enumerable_dict, assert_enumerable_list, assert_enumerator
 
 
 @pytest.fixture
@@ -23,9 +23,7 @@ def test_collect_with_a_function_returns_an_enumerable_list(enumerable_dict):
 
 
 def test_collect_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.collect()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerator(enumerable_dict.collect(), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_compact():
@@ -59,9 +57,7 @@ def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen)
 
 
 def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.each()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerator(enumerable_dict.each(), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_find(enumerable_dict):
@@ -77,9 +73,7 @@ def test_find_when_not_found_with_default(enumerable_dict):
 
 
 def test_find_whitout_predicate_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.find()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerator(enumerable_dict.find(), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_first(enumerable_dict):
@@ -123,9 +117,7 @@ def test_reject_returns_the_elements_for_which_the_function_is_falsy(enumerable_
 
 
 def test_reject_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.reject()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerator(enumerable_dict.reject(), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_select_returns_the_elements_for_which_the_function_is_truthy(enumerable_dict):
@@ -133,9 +125,7 @@ def test_select_returns_the_elements_for_which_the_function_is_truthy(enumerable
 
 
 def test_select_without_a_function_returns_an_enumerator(enumerable_dict):
-    enumerator = enumerable_dict.select()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerator(enumerable_dict.select(), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_take(enumerable_dict):

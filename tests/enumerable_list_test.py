@@ -1,6 +1,6 @@
 import pytest
-from pyby import EnumerableList, Enumerator
-from .test_helpers import assert_enumerable_list, pass_through
+from pyby import EnumerableList
+from .test_helpers import assert_enumerable_list, assert_enumerator
 
 
 @pytest.fixture
@@ -36,9 +36,7 @@ def test_collect_with_a_sequence_containing_a_tuple(list_with_a_tuple):
 
 
 def test_collect_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.collect()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
+    assert_enumerator(letters.collect(), ["a", "b", "c"])
 
 
 def test_compact():
@@ -76,9 +74,7 @@ def test_each_with_a_function_calls_it_once_for_each_item(letters, seen):
 
 
 def test_each_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.each()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
+    assert_enumerator(letters.each(), ["a", "b", "c"])
 
 
 def test_find(numbers):
@@ -94,9 +90,7 @@ def test_find_when_not_found_with_default(numbers):
 
 
 def test_find_whitout_predicate_returns_an_enumerator(letters):
-    enumerator = letters.find()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
+    assert_enumerator(letters.find(), ["a", "b", "c"])
 
 
 def test_first(numbers):
@@ -140,9 +134,7 @@ def test_reject_returns_the_elements_for_which_the_function_is_falsy(numbers):
 
 
 def test_reject_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.reject()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
+    assert_enumerator(letters.reject(), ["a", "b", "c"])
 
 
 def test_reject_with_a_sequence_containing_a_tuple(list_with_a_tuple):
@@ -154,9 +146,7 @@ def test_select_returns_the_elements_for_which_the_function_is_truthy(numbers):
 
 
 def test_select_without_a_function_returns_an_enumerator(letters):
-    enumerator = letters.select()
-    assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(pass_through) == ["a", "b", "c"]
+    assert_enumerator(letters.select(), ["a", "b", "c"])
 
 
 def test_select_with_a_sequence_containing_a_tuple(list_with_a_tuple):

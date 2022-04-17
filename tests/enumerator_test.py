@@ -1,6 +1,6 @@
 import pytest
 from pyby import Enumerable, EnumerableDict, Enumerator
-from .test_helpers import assert_enumerable_list, pass_through
+from .test_helpers import assert_enumerable_list, assert_enumerator, pass_through
 
 
 @pytest.fixture
@@ -93,7 +93,7 @@ def test_an_enumerator_is_iterable(enumerated_list, enumerated_dict):
 
 def test_each_without_a_function_returns_a_new_enumerator(enumerated_list):
     new_enum = enumerated_list.each()
-    assert isinstance(new_enum, Enumerator)
+    assert_enumerator(new_enum, [1, 2, 3])
     assert new_enum != enumerated_list
 
 
