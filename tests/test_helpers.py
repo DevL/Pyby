@@ -1,3 +1,11 @@
+from pyby import EnumerableList
+
+
+def assert_enumerable_list(actual, expected):
+    assert isinstance(actual, EnumerableList)
+    assert actual == expected
+
+
 def pass_through(value, *values):
     """
     >>> pass_through(2)

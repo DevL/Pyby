@@ -1,6 +1,6 @@
 import pytest
-from pyby import EnumerableDict, EnumerableList, Enumerator
-from .test_helpers import pass_through
+from pyby import EnumerableDict, Enumerator
+from .test_helpers import assert_enumerable_list, pass_through
 
 
 @pytest.fixture
@@ -19,8 +19,7 @@ def test_repr(enumerable_dict):
 
 def test_collect_with_a_function_returns_an_enumerable_list(enumerable_dict):
     result = enumerable_dict.collect(lambda key, value: (key.upper(), value + 1))
-    assert isinstance(result, EnumerableList)
-    assert result == [("A", 2), ("B", 3), ("C", 4)]
+    assert_enumerable_list(result, [("A", 2), ("B", 3), ("C", 4)])
 
 
 def test_collect_without_a_function_returns_an_enumerator(enumerable_dict):
@@ -68,7 +67,7 @@ def test_each_with_a_function_calls_it_once_for_each_item(enumerable_dict, seen)
 def test_each_without_a_function_returns_an_enumerator(enumerable_dict):
     enumerator = enumerable_dict.each()
     assert isinstance(enumerator, Enumerator)
-    assert enumerator.map(lambda x, y: (x, y)) == [("a", 1), ("b", 2), ("c", 3)]
+    assert enumerator.map(pass_through) == [("a", 1), ("b", 2), ("c", 3)]
 
 
 def test_find(enumerable_dict):
@@ -94,15 +93,11 @@ def test_first(enumerable_dict):
 
 
 def test_first_with_number_of_elements_specified(enumerable_dict):
-    result = enumerable_dict.first(2)
-    assert isinstance(result, EnumerableList)
-    assert result == [("a", 1), ("b", 2)]
+    assert_enumerable_list(enumerable_dict.first(2), [("a", 1), ("b", 2)])
 
 
 def test_first_with_fewer_elements_than_asked_for(enumerable_dict):
-    result = enumerable_dict.first(5)
-    assert isinstance(result, EnumerableList)
-    assert result == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerable_list(enumerable_dict.first(5), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_first_when_empty(empty_dict):
@@ -110,9 +105,7 @@ def test_first_when_empty(empty_dict):
 
 
 def test_first_when_empty_when_asked_for_a_number_of_elements(empty_dict):
-    result = empty_dict.first(5)
-    assert isinstance(result, EnumerableList)
-    assert result == []
+    assert_enumerable_list(empty_dict.first(5), [])
 
 
 def test_inject(enumerable_dict):
@@ -156,21 +149,15 @@ def test_select_without_a_function_returns_an_enumerator(enumerable_dict):
 
 
 def test_take(enumerable_dict):
-    result = enumerable_dict.take(2)
-    assert isinstance(result, EnumerableList)
-    assert result == [("a", 1), ("b", 2)]
+    assert_enumerable_list(enumerable_dict.take(2), [("a", 1), ("b", 2)])
 
 
 def test_take_with_fewer_elements_than_asked_for(enumerable_dict):
-    result = enumerable_dict.take(5)
-    assert isinstance(result, EnumerableList)
-    assert result == [("a", 1), ("b", 2), ("c", 3)]
+    assert_enumerable_list(enumerable_dict.take(5), [("a", 1), ("b", 2), ("c", 3)])
 
 
 def test_take_when_empty(empty_dict):
-    result = empty_dict.take(5)
-    assert isinstance(result, EnumerableList)
-    assert result == []
+    assert_enumerable_list(empty_dict.take(5), [])
 
 
 def value_is_zero(key, value):
