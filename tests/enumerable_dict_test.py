@@ -1,6 +1,6 @@
 import pytest
 from pyby import EnumerableDict, Enumerator
-from .test_helpers import assert_enumerable_list, pass_through
+from .test_helpers import assert_enumerable_dict, assert_enumerable_list, pass_through
 
 
 @pytest.fixture
@@ -30,21 +30,15 @@ def test_collect_without_a_function_returns_an_enumerator(enumerable_dict):
 
 def test_compact():
     enumerable_dict = EnumerableDict(a=1, b=2, c=3, d=None)
-    result = enumerable_dict.compact()
-    assert isinstance(result, EnumerableDict)
-    assert result == {"a": 1, "b": 2, "c": 3}
+    assert_enumerable_dict(enumerable_dict.compact(), {"a": 1, "b": 2, "c": 3})
 
 
 def test_compact_when_empty(empty_dict):
-    result = empty_dict.compact()
-    assert isinstance(result, EnumerableDict)
-    assert result == {}
+    assert_enumerable_dict(empty_dict.compact(), {})
 
 
 def test_compact_when_not_containing_any_None_values(enumerable_dict):
-    result = enumerable_dict.compact()
-    assert isinstance(result, EnumerableDict)
-    assert result == {"a": 1, "b": 2, "c": 3}
+    assert_enumerable_dict(enumerable_dict.compact(), {"a": 1, "b": 2, "c": 3})
 
 
 def test_count(enumerable_dict):
@@ -125,9 +119,7 @@ def test_inject_when_empty_with_initial_value(empty_dict):
 
 
 def test_reject_returns_the_elements_for_which_the_function_is_falsy(enumerable_dict):
-    result = enumerable_dict.reject(value_larger_than_one)
-    assert isinstance(result, EnumerableDict)
-    assert result == {"a": 1}
+    assert_enumerable_dict(enumerable_dict.reject(value_larger_than_one), {"a": 1})
 
 
 def test_reject_without_a_function_returns_an_enumerator(enumerable_dict):
@@ -137,9 +129,7 @@ def test_reject_without_a_function_returns_an_enumerator(enumerable_dict):
 
 
 def test_select_returns_the_elements_for_which_the_function_is_truthy(enumerable_dict):
-    result = enumerable_dict.select(value_larger_than_one)
-    assert isinstance(result, EnumerableDict)
-    assert result == {"b": 2, "c": 3}
+    assert_enumerable_dict(enumerable_dict.select(value_larger_than_one), {"b": 2, "c": 3})
 
 
 def test_select_without_a_function_returns_an_enumerator(enumerable_dict):

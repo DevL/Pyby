@@ -1,4 +1,9 @@
-from pyby import EnumerableList
+from pyby import EnumerableDict, EnumerableList
+
+
+def assert_enumerable_dict(actual, expected):
+    assert isinstance(actual, EnumerableDict)
+    assert actual == expected
 
 
 def assert_enumerable_list(actual, expected):
