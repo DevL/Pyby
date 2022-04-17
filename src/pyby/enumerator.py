@@ -21,7 +21,7 @@ class Enumerator(Enumerable):
         If going beyond the enumeration, `StopIteration` is raised.
         """
         head = self.head
-        if head == NO_HEAD:
+        if head is NO_HEAD:
             return next(self.enumeration)
         else:
             self.head = NO_HEAD
@@ -32,7 +32,7 @@ class Enumerator(Enumerable):
         Returns the current object in the enumeration sequence without advancing the enumeration.
         If going beyond the enumeration, `StopIteration` is raised.
         """
-        if self.head == NO_HEAD:
+        if self.head is NO_HEAD:
             self.head = next(self.enumeration)
         return self.head
 
