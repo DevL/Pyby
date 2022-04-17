@@ -59,17 +59,14 @@ def test_send_without_arguments_calls_an_arity_0_callable_property():
 
 
 def test_send_with_a_callable_property_without_required_arguments():
-    with pytest.raises(
-        TypeError, match=re.escape("<lambda>() missing 1 required positional argument: 'name'")
-    ):
+    expected = re.escape("<lambda>() missing 1 required positional argument: 'name'")
+    with pytest.raises(TypeError, match=expected):
         OBJECT.send("a_lambda")
 
 
 def test_send_with_a_callable_property_with_too_many_arguments():
-    with pytest.raises(
-        TypeError,
-        match=re.escape("a_method_without_args() takes 1 positional argument but 2 were given"),
-    ):
+    expected = re.escape("a_method_without_args() takes 1 positional argument but 2 were given")
+    with pytest.raises(TypeError, match=expected):
         OBJECT.send("a_method_without_args", "an unexpected argument")
 
 
