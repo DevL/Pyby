@@ -179,6 +179,11 @@ def test_uniq_with_predicate(numbers_with_duplicates):
     assert_enumerable_list(numbers_with_duplicates.uniq(larger_than_one), [1, 2])
 
 
+def test_uniq_with_no_hashable_elements():
+    enumerable_list = EnumerableList([1, 2, [1], [2], [1, 2]])
+    assert_enumerable_list(enumerable_list.uniq(), [1, 2, [1], [2], [1, 2]])
+
+
 def increment(element):
     return element + 1
 
