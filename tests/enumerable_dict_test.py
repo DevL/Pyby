@@ -140,6 +140,14 @@ def test_take_when_empty(empty_dict):
     assert_enumerable_list(empty_dict.take(5), [])
 
 
+def test_uniq(enumerable_dict):
+    assert_enumerable_list(enumerable_dict.uniq(), [("a", 1), ("b", 2), ("c", 3)])
+
+
+def test_uniq_with_predicate(enumerable_dict):
+    assert_enumerable_list(enumerable_dict.uniq(value_larger_than_one), [("a", 1), ("b", 2)])
+
+
 def value_is_zero(key, value):
     return value == 0
 

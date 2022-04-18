@@ -159,6 +159,19 @@ class Enumerable(RObject):
         """
         return import_module("pyby.enumerator").Enumerator(self)
 
+    @configure(enumerator_without_func=False)
+    def uniq(self, into, to_tuple, func=lambda *args: args):
+        """
+        Without a function, returns only unique elements.
+        With a function, returns only elements for which the function returns a unique value.
+        """
+        unique = {}
+        for item in self.__each__():
+            key = func(*to_tuple(item))
+            if key not in unique:
+                unique[key] = item
+        return into(unique.values())
+
     # Method aliases
     map = collect
     filter = select

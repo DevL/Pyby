@@ -25,6 +25,7 @@ def enumerable():
         "select",
         "take",
         "to_enum",
+        "uniq",
     ],
 )
 def test_public_interface(enumerable, method_name):

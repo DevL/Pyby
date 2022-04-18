@@ -147,6 +147,11 @@ Returns the number of elements requested or as many elements as possible.
 Returns an `Enumerator` for the enumerable.  
 Requires an iterable subclass.
 
+#### [`uniq`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-uniq)
+
+Without a function, returns only unique elements.
+With a function, returns only elements for which the function returns a unique value.
+
 ---
 
 ### [`EnumerableDict`](https://ruby-doc.org/core-3.1.2/Hash.html) (enumerable_dict.py)

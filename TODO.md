@@ -22,8 +22,8 @@
 - [x] reject
 - [x] select/filter
 - [x] take
-- [ ] uniq (no args)
-- [ ] uniq (predicate to determine uniqueness)
+- [x] uniq (no args)
+- [x] uniq (predicate to determine uniqueness)
 
 ---
 

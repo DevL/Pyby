@@ -24,6 +24,11 @@ def numbers():
     return EnumerableList([1, 2, 3])
 
 
+@pytest.fixture
+def numbers_with_duplicates():
+    return EnumerableList([1, 2, 3, 3, 2])
+
+
 def test_repr(letters):
     assert repr(letters) == "EnumerableList(['a', 'b', 'c'])"
 
@@ -164,6 +169,14 @@ def test_take_with_fewer_elements_than_asked_for(letters):
 
 def test_take_when_empty(empty_list):
     assert_enumerable_list(empty_list.take(5), [])
+
+
+def test_uniq(numbers_with_duplicates):
+    assert_enumerable_list(numbers_with_duplicates.uniq(), [1, 2, 3])
+
+
+def test_uniq_with_predicate(numbers_with_duplicates):
+    assert_enumerable_list(numbers_with_duplicates.uniq(larger_than_one), [1, 2])
 
 
 def increment(element):
