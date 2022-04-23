@@ -165,12 +165,14 @@ class Enumerable(RObject):
         Without a function, returns only unique elements.
         With a function, returns only elements for which the function returns a unique value.
         """
-        unique = {}
+        unique_keys = []
+        unique_values = []
         for item in self.__each__():
             key = func(*to_tuple(item))
-            if key not in unique:
-                unique[key] = item
-        return into(unique.values())
+            if key not in unique_keys:
+                unique_keys.append(key)
+                unique_values.append(item)
+        return into(unique_values)
 
     # Method aliases
     map = collect
