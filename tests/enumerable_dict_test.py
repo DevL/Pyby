@@ -1,6 +1,11 @@
 import pytest
 from pyby import EnumerableDict
-from .test_helpers import assert_enumerable_dict, assert_enumerable_list, assert_enumerator
+from .test_helpers import (
+    assert_enumerable_dict,
+    assert_enumerable_list,
+    assert_enumerator,
+    pass_through,
+)
 
 
 @pytest.fixture
@@ -94,6 +99,14 @@ def test_first_when_empty(empty_dict):
 
 def test_first_when_empty_when_asked_for_a_number_of_elements(empty_dict):
     assert_enumerable_list(empty_dict.first(5), [])
+
+
+def test_flat_map_without_a_function_returns_an_enumerator(enumerable_dict):
+    assert_enumerator(enumerable_dict.flat_map(), [("a", 1), ("b", 2), ("c", 3)])
+
+
+def test_flat_map_with_nested_iterables(enumerable_dict):
+    assert_enumerable_list(enumerable_dict.flat_map(pass_through), ["a", 1, "b", 2, "c", 3])
 
 
 def test_inject(enumerable_dict):

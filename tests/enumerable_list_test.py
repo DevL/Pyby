@@ -1,7 +1,7 @@
 import pytest
 from operator import add
 from pyby import EnumerableList
-from .test_helpers import assert_enumerable_list, assert_enumerator
+from .test_helpers import assert_enumerable_list, assert_enumerator, pass_through
 
 
 @pytest.fixture
@@ -117,6 +117,15 @@ def test_first_with_fewer_elements_than_asked_for(letters):
 
 def test_first_when_empty_when_asked_for_a_number_of_elements(empty_list):
     assert_enumerable_list(empty_list.first(5), [])
+
+
+def test_flat_map_without_a_function_returns_an_enumerator(letters):
+    assert_enumerator(letters.flat_map(), ["a", "b", "c"])
+
+
+def test_flat_map_with_nested_iterables(letters, numbers):
+    enumerable_list = EnumerableList([letters, numbers])
+    assert_enumerable_list(enumerable_list.flat_map(pass_through), ["a", "b", "c", 1, 2, 3])
 
 
 def test_inject(numbers):

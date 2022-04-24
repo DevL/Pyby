@@ -108,6 +108,30 @@ class Enumerable(RObject):
         else:
             return into(islice(self.__each__(), number))
 
+    @configure()
+    def flat_map(self, into, to_tuple, func):
+        """
+        Returns the flattened result of mapping a function over the elements.
+        The mapping function takes a single argument for sequences and two arguments for mappings.
+
+        Also available as the alias `collect_concat`.
+        """
+
+        def iterable(item):
+            try:
+                iter(item)
+                return True
+            except TypeError:
+                return False
+
+        result = []
+        for item in self.map(func):
+            if iterable(item):
+                result.extend(item)
+            else:
+                result.append(item)
+        return into(result)
+
     def inject(self, func_or_initial, func=NOT_USED):
         """
         Performs a reduction operation much like `functools.reduce`.
@@ -178,6 +202,7 @@ class Enumerable(RObject):
     map = collect
     filter = select
     reduce = inject
+    collect_concat = flat_map
 
     def __each__(self):
         """

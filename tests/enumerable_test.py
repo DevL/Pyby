@@ -13,8 +13,10 @@ def enumerable():
     [
         "each",
         "collect",
+        "collect_concat",
         "compact",
         "count",
+        "flat_map",
         "filter",
         "find",
         "first",
@@ -38,6 +40,7 @@ def test_public_interface(enumerable, method_name):
         ("map", "collect"),
         ("filter", "select"),
         ("reduce", "inject"),
+        ("collect_concat", "flat_map"),
     ],
 )
 def test_aliases(enumerable, alias, method_name):
