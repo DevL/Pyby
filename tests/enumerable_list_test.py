@@ -124,8 +124,13 @@ def test_flat_map_without_a_function_returns_an_enumerator(letters):
 
 
 def test_flat_map_with_nested_iterables(letters, numbers):
-    enumerable_list = EnumerableList([letters, numbers])
-    assert_enumerable_list(enumerable_list.flat_map(pass_through), ["a", "b", "c", 1, 2, 3])
+    enumerable_list = EnumerableList([letters, numbers, 4])
+    assert_enumerable_list(enumerable_list.flat_map(pass_through), ["a", "b", "c", 1, 2, 3, 4])
+
+
+def test_flat_map_does_not_treat_strings_as_nested_iterables():
+    enumerable_list = EnumerableList(["abc", "def"])
+    assert_enumerable_list(enumerable_list.flat_map(pass_through), ["abc", "def"])
 
 
 def test_inject(numbers):

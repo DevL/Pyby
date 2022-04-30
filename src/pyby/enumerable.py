@@ -116,20 +116,12 @@ class Enumerable(RObject):
 
         Also available as the alias `collect_concat`.
         """
-
-        def iterable(item):
-            try:
-                iter(item)
-                return True
-            except TypeError:
-                return False
-
         result = []
         for item in self.map(func):
-            if iterable(item):
-                result.extend(item)
-            else:
+            if isinstance(item, str) or not iterable(item):
                 result.append(item)
+            else:
+                result.extend(item)
         return into(result)
 
     def inject(self, func_or_initial, func=NOT_USED):
@@ -246,3 +238,20 @@ def inverse(predicate):
     True
     """
     return lambda *args: not predicate(*args)
+
+
+def iterable(item):
+    """
+    Predicate function to determine whether a object is an iterable or not.
+
+    >>> iterable([1, 2, 3])
+    True
+
+    >>> iterable(1)
+    False
+    """
+    try:
+        iter(item)
+        return True
+    except TypeError:
+        return False
