@@ -1,29 +1,53 @@
 # Enumerable Candidates
 
-- [x] collect/map (no args)
-- [x] collect/map (callable args)
-- [x] compact
+## Methods for Querying
+
+- [ ] all? (no args)
+- [ ] all? (non-callable arg)
+- [ ] all? (callable arg)
+- [ ] any? (no args)
+- [ ] any? (non-callable arg)
+- [ ] any? (callable arg)
 - [x] count (no args)
 - [x] count (non-callable arg)
 - [x] count (callable arg)
+- [ ] none? (no args)
+- [ ] none? (non-callable arg)
+- [ ] none? (callable arg)
+- [ ] one? (no args)
+- [ ] one? (non-callable arg)
+- [ ] one? (callable arg)
+- [ ] include?/member?
+
+## Methods for Fetching
+
+- [x] first (no args)
+- [x] first (n elements)
+- [x] take
+
+## Methods for Searching and Filtering
+
+- [x] find
+- [x] find (if_non_proc)
+- [x] reject
+- [x] select/filter
+- [x] uniq (no args)
+- [x] uniq (predicate to determine uniqueness)
+
+## Other Methods
+
+- [x] collect/map (no args)
+- [x] collect/map (callable args)
+- [x] compact
 - [ ] cycle (positive number)
 - [ ] cycle (zero or negative number)
 - [ ] cycle (no number)
 - [ ] cycle (no arg)
 - [x] each (no args)
 - [x] each (callable arg)
-- [x] find
-- [x] find (if_non_proc)
-- [x] first (no args)
-- [x] first (n elements)
 - [x] flat_map / collect_concat (no args)
 - [x] flat_map / collect_concat (callable arg)
 - [x] inject/reduce
-- [x] reject
-- [x] select/filter
-- [x] take
-- [x] uniq (no args)
-- [x] uniq (predicate to determine uniqueness)
 
 ---
 
