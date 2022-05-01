@@ -27,10 +27,10 @@
 
 ## Methods for Searching and Filtering
 
-- [x] find
-- [x] find (if_non_proc)
+- [x] find/detect
+- [x] find/detect (if_non_proc)
 - [x] reject
-- [x] select/filter
+- [x] select/filter/find_all
 - [x] uniq (no args)
 - [x] uniq (predicate to determine uniqueness)
 
@@ -48,7 +48,8 @@
 - [x] flat_map / collect_concat (no args)
 - [x] flat_map / collect_concat (callable arg)
 - [x] inject/reduce
-
+- [ ] zip (no args)
+- [ ] zip (callable arg)
 ---
 
 # Enumerator Candidates

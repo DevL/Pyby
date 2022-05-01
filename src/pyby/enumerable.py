@@ -195,6 +195,8 @@ class Enumerable(RObject):
     filter = select
     reduce = inject
     collect_concat = flat_map
+    detect = find
+    find_all = select
 
     def __each__(self):
         """
