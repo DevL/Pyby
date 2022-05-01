@@ -81,6 +81,11 @@ Relys on the enumerable's implementation of `__into__` and `__to_tuple__`.
 Returns the result of mapping a function over the elements.  
 The mapping function takes a single argument for sequences and two arguments for mappings.
 
+#### [`collect_concat`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-collect_concat), [`flat_map`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-flat_map)
+
+Returns the flattened result of mapping a function over the elements.
+The mapping function takes a single argument for sequences and two arguments for mappings.
+
 #### [`compact`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-compact)
 
 Returns an enumerable of the elements with None values removed.
