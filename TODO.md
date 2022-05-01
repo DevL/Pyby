@@ -16,8 +16,8 @@
 - [x] find (if_non_proc)
 - [x] first (no args)
 - [x] first (n elements)
-- [ ] flat_map / collect_concat (no args)
-- [ ] flat_map / collect_concat (callable arg)
+- [x] flat_map / collect_concat (no args)
+- [x] flat_map / collect_concat (callable arg)
 - [x] inject/reduce
 - [x] reject
 - [x] select/filter
