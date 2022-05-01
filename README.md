@@ -113,7 +113,6 @@ The predicate function takes a single argument for sequences and two arguments f
 
 Without a predicate function, returns an enumerator by calling to_enum.
 
-
 #### [`find`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-find)
 
 Returns the first element for which the predicate function is truthy. If no matching element is found, returns `None`, unless a default callback has been provided, in which turn that callback function will be invoked and its result returned. The predicate function takes a single argument for sequences and two arguments for mappings.
@@ -123,6 +122,12 @@ If called with two arguments, the first is treated as the default callback funct
 
 Without a predicate function, returns an enumerator by calling to_enum.
 
+#### [`first`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-first)
+
+Returns the first element or a given number of elements.  
+With no argument, returns the first element, or `None` if there is none.  
+With a number of elements requested, returns as many elements as possible.
+
 #### [`inject`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-inject), [`reduce`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-reduce)
 
 Performs a reduction operation much like `functools.reduce`.  
@@ -130,12 +135,6 @@ If called with a single argument, treats it as the reduction function.
 If called with two arguments, the first is treated as the initial value for the reduction and the second argument acts as the reduction function.
 
 Also available as the alias `reduce`.
-
-#### [`first`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-first)
-
-Returns the first element or a given number of elements.  
-With no argument, returns the first element, or `None` if there is none.  
-With a number of elements requested, returns as many elements as possible.
 
 #### [`reject`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-reject)
 
