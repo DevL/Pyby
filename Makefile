@@ -1,7 +1,7 @@
 PYTHON_VERSION ?= 3.8
 
 dist: clean-dist
-	python3 setup.py sdist
+	python3 setup.py sdist bdist_wheel
 
 venv: dev-packages.txt
 	virtualenv venv --python=${PYTHON_VERSION}
