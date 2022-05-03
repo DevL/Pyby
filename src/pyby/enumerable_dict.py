@@ -8,6 +8,9 @@ class EnumerableDict(Enumerable, UserDict):
     A dict behaving like an Enumerable.
     """
 
+    def include(self, candidate):
+        return candidate in self.keys()
+
     def __each__(self):
         return iter(self.items())
 

@@ -128,6 +128,11 @@ Returns the first element or a given number of elements.
 With no argument, returns the first element, or `None` if there is none.  
 With a number of elements requested, returns as many elements as possible.
 
+#### [`include`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-include-3F), [`member`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-member-3F) 
+
+Returns whether the enumerable includes the element.  
+For mappings this is determined as a key with the same name existing.
+
 #### [`inject`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-inject), [`reduce`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-reduce)
 
 Performs a reduction operation much like `functools.reduce`.  

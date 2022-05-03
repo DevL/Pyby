@@ -109,6 +109,11 @@ def test_flat_map_with_nested_iterables(enumerable_dict):
     assert_enumerable_list(enumerable_dict.flat_map(pass_through), ["a", 1, "b", 2, "c", 3])
 
 
+def test_include(enumerable_dict):
+    assert enumerable_dict.include("a")
+    assert not enumerable_dict.include(1)
+
+
 def test_inject(enumerable_dict):
     assert enumerable_dict.inject(lambda acc, kv_pair: ("sum", acc[1] + kv_pair[1])) == ("sum", 6)
 

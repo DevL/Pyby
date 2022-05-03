@@ -22,8 +22,10 @@ def enumerable():
         "find",
         "find_all",
         "first",
+        "include",
         "inject",
         "map",
+        "member",
         "reduce",
         "reject",
         "select",
@@ -45,6 +47,7 @@ def test_public_interface(enumerable, method_name):
         ("collect_concat", "flat_map"),
         ("detect", "find"),
         ("find_all", "select"),
+        ("member", "include"),
     ],
 )
 def test_aliases(enumerable, alias, method_name):

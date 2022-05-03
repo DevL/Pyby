@@ -124,6 +124,9 @@ class Enumerable(RObject):
                 result.extend(item)
         return into(result)
 
+    def include(self, candidate):
+        return candidate in self.__each__()
+
     def inject(self, func_or_initial, func=NOT_USED):
         """
         Performs a reduction operation much like `functools.reduce`.
@@ -197,6 +200,7 @@ class Enumerable(RObject):
     collect_concat = flat_map
     detect = find
     find_all = select
+    member = include
 
     def __each__(self):
         """

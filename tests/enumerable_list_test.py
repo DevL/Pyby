@@ -133,6 +133,11 @@ def test_flat_map_does_not_treat_strings_as_nested_iterables():
     assert_enumerable_list(enumerable_list.flat_map(pass_through), ["abc", "def"])
 
 
+def test_include(numbers):
+    assert numbers.include(3)
+    assert not numbers.include(4)
+
+
 def test_inject(numbers):
     assert numbers.inject(add) == 6
 

@@ -17,7 +17,7 @@
 - [ ] one? (no args)
 - [ ] one? (non-callable arg)
 - [ ] one? (callable arg)
-- [ ] include?/member?
+- [x] include?/member?
 
 ## Methods for Fetching
 
