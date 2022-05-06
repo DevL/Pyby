@@ -50,6 +50,12 @@ class Enumerable(RObject):
 
         return decorator
 
+    def any():
+        pass
+
+    def all():
+        pass
+
     @configure()
     def collect(self, into, to_tuple, func):
         """
@@ -146,6 +152,12 @@ class Enumerable(RObject):
                 return None
             else:
                 raise
+
+    def none():
+        pass
+
+    def one():
+        pass
 
     @configure(use_into=False, use_to_tuple=False)
     def reject(self, predicate):
