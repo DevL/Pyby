@@ -1,4 +1,5 @@
 import pytest
+import re
 from operator import add
 from pyby import EnumerableList
 from .test_helpers import assert_enumerable_list, assert_enumerator, pass_through
@@ -31,6 +32,33 @@ def numbers_with_duplicates():
 
 def test_repr(letters):
     assert repr(letters) == "EnumerableList(['a', 'b', 'c'])"
+
+
+def test_any(numbers):
+    assert numbers.any()
+    assert not EnumerableList([False, None]).any()
+
+
+def test_any_with_an_object(numbers):
+    assert numbers.any(3)
+    assert not numbers.any(4)
+
+
+def test_any_with_a_predicate(numbers):
+    assert EnumerableList([0]).any(is_zero)
+    assert not numbers.any(is_zero)
+
+
+def test_any_with_a_regex_pattern(numbers):
+    pattern = re.compile(r"\d")
+    assert not numbers.any(pattern)
+    numbers.append("69")
+    assert numbers.any(pattern)
+
+
+def test_any_with_a_class(numbers):
+    assert numbers.any(int)
+    assert not numbers.any(str)
 
 
 def test_collect_with_a_function_maps_over_the_items_and_returns_an_enumerable_list(numbers):

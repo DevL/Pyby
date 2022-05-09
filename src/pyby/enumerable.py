@@ -1,6 +1,8 @@
 import functools
 from importlib import import_module
 from itertools import islice
+from operator import truth
+import re
 from .object import RObject
 
 EMPTY_REDUCE_ERRORS = [
@@ -50,10 +52,20 @@ class Enumerable(RObject):
 
         return decorator
 
-    def any():
-        pass
+    def any(self, compare_to=truth):
+        is_a = lambda item: isinstance(item, compare_to)  # noqa
+        same = lambda item: item == compare_to  # noqa
+        match = lambda item: isinstance(item, str) and bool(compare_to.match(item))  # noqa
+        comparison = compare_to
+        if isinstance(compare_to, type):
+            comparison = is_a
+        if isinstance(compare_to, re.Pattern):
+            return any(match(item) for item in self.__each__())
+        if not callable(compare_to):
+            comparison = same
+        return any(comparison(item) for item in self.__each__())
 
-    def all():
+    def all(self):
         pass
 
     @configure()
