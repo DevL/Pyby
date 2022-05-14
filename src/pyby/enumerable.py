@@ -56,7 +56,7 @@ class Enumerable(RObject):
         is_a = lambda item: isinstance(item, compare_to)  # noqa
         same = lambda item: item == compare_to  # noqa
         match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
-            compare_to.match(item)
+            compare_to.search(item)
         )
         comparison = compare_to
         if isinstance(compare_to, type):
@@ -71,7 +71,7 @@ class Enumerable(RObject):
         is_a = lambda item: isinstance(item, compare_to)  # noqa
         same = lambda item: item == compare_to  # noqa
         match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
-            compare_to.match(item)
+            compare_to.search(item)
         )
         comparison = compare_to
         if isinstance(compare_to, type):
