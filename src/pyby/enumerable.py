@@ -61,14 +61,27 @@ class Enumerable(RObject):
         comparison = compare_to
         if isinstance(compare_to, type):
             comparison = is_a
-        if isinstance(compare_to, re.Pattern):
-            return any(match(item) for item in self.__each__())
-        if not callable(compare_to):
+        elif isinstance(compare_to, re.Pattern):
+            comparison = match
+        elif not callable(compare_to):
             comparison = same
         return any(comparison(item) for item in self.__each__())
 
-    def all(self):
-        pass
+    def all(self, compare_to=truth):
+        is_a = lambda item: isinstance(item, compare_to)  # noqa
+        same = lambda item: item == compare_to  # noqa
+        match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
+            compare_to.match(item)
+        )
+        comparison = compare_to
+        if isinstance(compare_to, type):
+            comparison = is_a
+        elif isinstance(compare_to, re.Pattern):
+            comparison = match
+        elif not callable(compare_to):
+            comparison = same
+        # return all(comparison(item) for item in self.__each__())
+        return not self.any(inverse(comparison))
 
     @configure()
     def collect(self, into, to_tuple, func):
