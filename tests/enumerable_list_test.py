@@ -37,6 +37,7 @@ def test_repr(letters):
 def test_any(numbers):
     assert numbers.any()
     assert not EnumerableList([False, None]).any()
+    assert not EnumerableList().any()
 
 
 def test_any_with_an_object(numbers):
