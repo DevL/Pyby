@@ -51,10 +51,14 @@ def test_any_with_a_predicate(numbers):
 
 
 def test_any_with_a_regex_pattern(numbers):
-    pattern = re.compile(r"\d")
-    assert not numbers.any(pattern)
+    string_pattern = re.compile(r"\d")
+    assert not numbers.any(string_pattern)
     numbers.append("69")
-    assert numbers.any(pattern)
+    assert numbers.any(string_pattern)
+    bytes_pattern = re.compile(r"\d".encode())
+    assert not numbers.any(bytes_pattern)
+    numbers.append(b"420")
+    assert numbers.any(bytes_pattern)
 
 
 def test_any_with_a_class(numbers):

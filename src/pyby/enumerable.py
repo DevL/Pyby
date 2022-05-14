@@ -55,7 +55,9 @@ class Enumerable(RObject):
     def any(self, compare_to=truth):
         is_a = lambda item: isinstance(item, compare_to)  # noqa
         same = lambda item: item == compare_to  # noqa
-        match = lambda item: isinstance(item, str) and bool(compare_to.match(item))  # noqa
+        match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
+            compare_to.match(item)
+        )
         comparison = compare_to
         if isinstance(compare_to, type):
             comparison = is_a
