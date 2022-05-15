@@ -180,8 +180,20 @@ class Enumerable(RObject):
             else:
                 raise
 
-    def none():
-        pass
+    def none(self, compare_to=truth):
+        is_a = lambda item: isinstance(item, compare_to)  # noqa
+        same = lambda item: item == compare_to  # noqa
+        match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
+            compare_to.search(item)
+        )
+        comparison = compare_to
+        if isinstance(compare_to, type):
+            comparison = is_a
+        elif isinstance(compare_to, re.Pattern):
+            comparison = match
+        elif not callable(compare_to):
+            comparison = same
+        return not self.any(comparison)
 
     def one():
         pass
