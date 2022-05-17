@@ -1,4 +1,5 @@
 import pytest
+import re
 from operator import add
 from pyby import EnumerableList
 from .test_helpers import assert_enumerable_list, assert_enumerator, pass_through
@@ -31,6 +32,74 @@ def numbers_with_duplicates():
 
 def test_repr(letters):
     assert repr(letters) == "EnumerableList(['a', 'b', 'c'])"
+
+
+def test_any(empty_list, numbers):
+    assert numbers.any()
+    assert not empty_list.any()
+    assert not EnumerableList([False, None]).any()
+
+
+def test_any_with_an_object(numbers):
+    assert numbers.any(3)
+    assert not numbers.any(4)
+
+
+def test_any_with_a_predicate(empty_list, numbers):
+    assert EnumerableList([0]).any(is_zero)
+    assert not empty_list.any(is_zero)
+    assert not numbers.any(is_zero)
+
+
+def test_any_with_a_regex_pattern(numbers):
+    string_pattern = re.compile(r"\d")
+    assert not numbers.any(string_pattern)
+    numbers.append("the number 69")
+    assert numbers.any(string_pattern)
+    bytes_pattern = re.compile(r"\d".encode())
+    assert not numbers.any(bytes_pattern)
+    numbers.append(b"binary 420")
+    assert numbers.any(bytes_pattern)
+
+
+def test_any_with_a_class(numbers):
+    assert numbers.any(int)
+    assert not numbers.any(str)
+
+
+def test_all(empty_list, numbers):
+    assert numbers.all()
+    assert empty_list.all()
+    assert not EnumerableList([False, None]).all()
+
+
+def test_all_with_an_object(numbers):
+    assert not numbers.all(3)
+    assert EnumerableList([4, 4, 4]).all(4)
+
+
+def test_all_with_a_predicate(empty_list, numbers):
+    assert empty_list.all(is_zero)
+    assert EnumerableList([0]).all(is_zero)
+    assert not numbers.all(larger_than_one)
+
+
+# def test_all_with_a_regex_pattern(empty_list, numbers):
+#     string_pattern = re.compile(r"\d")
+
+#     assert not numbers.all(string_pattern)
+#     assert numbers.all(string_pattern)
+
+#     bytes_pattern = re.compile(r"\d".encode())
+#     assert not numbers.any(bytes_pattern)
+#     numbers.append(b"420")
+#     assert numbers.any(bytes_pattern)
+
+
+def test_all_with_a_class(numbers, list_with_a_tuple):
+    assert numbers.all(int)
+    assert not numbers.all(str)
+    assert not list_with_a_tuple.all(int)
 
 
 def test_collect_with_a_function_maps_over_the_items_and_returns_an_enumerable_list(numbers):

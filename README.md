@@ -76,6 +76,20 @@ If `enumerator_without_func` is set, the decorator skips calling the decorated m
 
 Relys on the enumerable's implementation of `__into__` and `__to_tuple__`.
 
+#### [`any`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-any-3F)
+
+Returns whether any element meets a given criterion.  
+With no arguments, the criterion is truthiness.  
+With a callable argument, returns whether it returns a truthy value for any element.  
+With a non-callable argument, treats it as a [pattern](#user-content-patterns).
+
+#### [`all`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-all-3F)
+
+Returns whether every element meets a given criterion.  
+With no arguments, the criterion is truthiness.  
+With a callable argument, returns whether it returns a truthy value for all elements.  
+With a non-callable argument, treats it as a [pattern](#user-content-patterns).
+
 #### [`collect`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-collect), [`map`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-map)
 
 Returns the result of mapping a function over the elements.  
@@ -139,7 +153,19 @@ Performs a reduction operation much like `functools.reduce`.
 If called with a single argument, treats it as the reduction function.  
 If called with two arguments, the first is treated as the initial value for the reduction and the second argument acts as the reduction function.
 
-Also available as the alias `reduce`.
+#### [`none`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-none-3F)
+
+Returns whether no element meets a given criterion.  
+With no arguments, the criterion is truthiness.  
+With a callable argument, returns whether it returns a truthy value for no element.  
+With a non-callable argument, treats it as a [pattern](#user-content-patterns).
+
+#### [`one`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-one-3F)
+
+Returns whether exactly one element meets a given criterion.  
+With no arguments, the criterion is truthiness.  
+With a callable argument, returns whether it returns a truthy value for exactly one element.  
+With a non-callable argument, treats it as a [pattern](#user-content-patterns).
 
 #### [`reject`](https://ruby-doc.org/core-3.1.2/Enumerable.html#method-i-reject)
 
@@ -195,3 +221,13 @@ If going beyond the enumeration, `StopIteration` is raised.
 Rewinds the enumeration sequence to the beginning.
 
 _Note that this may not be possible to do for underlying iterables that can be exhausted._
+
+---
+
+### Patterns
+
+Especially given Enumerable's [query methods](https://ruby-doc.org/core-3.1.2/Enumerable.html#module-Enumerable-label-Methods+for+Querying), the concept of patterns needs to be dealt with.
+
+In Ruby, [`===`](https://ruby-doc.org/core-3.1.2/Object.html#method-i-3D-3D-3D) is used, but this is not easily ported to Python. For example, in the case of a callabel type like `bool` a decision must be made whether to check for type equality or call `bool` with the element to determine truthiness. Thus Pyby gives precedence to type checks.
+
+In the case of regex patterns, they only attempt to match an element if that element is of a compatible type to the regex pattern, i.e. a string regex pattern is applied to string-like elements and a bytes regex pattern is applied to bytes-like elements.
