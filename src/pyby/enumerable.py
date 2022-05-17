@@ -80,7 +80,6 @@ class Enumerable(RObject):
             comparison = match
         elif not callable(compare_to):
             comparison = same
-        # return all(comparison(item) for item in self.__each__())
         return not self.any(inverse(comparison))
 
     @configure()
