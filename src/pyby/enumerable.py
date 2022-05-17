@@ -1,6 +1,6 @@
 import functools
 from importlib import import_module
-from itertools import islice
+from itertools import dropwhile, islice
 from operator import truth
 import re
 from .object import RObject
@@ -9,6 +9,7 @@ EMPTY_REDUCE_ERRORS = [
     "reduce() of empty iterable with no initial value",
     "reduce() of empty sequence with no initial value",
 ]
+NOT_FOUND = object()
 NOT_USED = object()
 
 
@@ -65,6 +66,7 @@ class Enumerable(RObject):
             comparison = match
         elif not callable(compare_to):
             comparison = same
+
         return any(comparison(item) for item in self.__each__())
 
     def all(self, compare_to=truth):
@@ -194,8 +196,24 @@ class Enumerable(RObject):
             comparison = same
         return not self.any(comparison)
 
-    def one():
-        pass
+    def one(self, compare_to=truth):
+        is_a = lambda item: isinstance(item, compare_to)  # noqa
+        same = lambda item: item == compare_to  # noqa
+        match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
+            compare_to.search(item)
+        )
+        comparison = compare_to
+        if isinstance(compare_to, type):
+            comparison = is_a
+        elif isinstance(compare_to, re.Pattern):
+            comparison = match
+        elif not callable(compare_to):
+            comparison = same
+        tail = dropwhile(inverse(comparison), self.__each__())
+        if next(tail, NOT_FOUND) == NOT_FOUND:
+            return False
+        else:
+            return not any(comparison(item) for item in tail)
 
     @configure(use_into=False, use_to_tuple=False)
     def reject(self, predicate):
