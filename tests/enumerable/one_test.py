@@ -1,16 +1,5 @@
-import pytest
 import re
 from pyby import EnumerableList
-
-
-@pytest.fixture
-def empty_list():
-    return EnumerableList()
-
-
-@pytest.fixture
-def numbers():
-    return EnumerableList([1, 2, 3])
 
 
 def test_one(empty_list, numbers):

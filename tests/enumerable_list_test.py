@@ -6,11 +6,6 @@ from .test_helpers import assert_enumerable_list, assert_enumerator, pass_throug
 
 
 @pytest.fixture
-def empty_list():
-    return EnumerableList()
-
-
-@pytest.fixture
 def letters():
     return EnumerableList(["a", "b", "c"])
 
@@ -18,11 +13,6 @@ def letters():
 @pytest.fixture
 def list_with_a_tuple():
     return EnumerableList(["a", ("b", None), "c"])
-
-
-@pytest.fixture
-def numbers():
-    return EnumerableList([1, 2, 3])
 
 
 @pytest.fixture

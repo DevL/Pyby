@@ -1,4 +1,3 @@
-import pytest
 from pyby import EnumerableDict
 from .test_helpers import (
     assert_enumerable_dict,
@@ -6,16 +5,6 @@ from .test_helpers import (
     assert_enumerator,
     pass_through,
 )
-
-
-@pytest.fixture
-def enumerable_dict():
-    return EnumerableDict(a=1, b=2, c=3)
-
-
-@pytest.fixture
-def empty_dict():
-    return EnumerableDict()
 
 
 def test_repr(enumerable_dict):
