@@ -196,24 +196,22 @@ class Enumerable(RObject):
             comparison = same
         return not self.any(comparison)
 
-    def one(self, compare_to=truth):
-        is_a = lambda item: isinstance(item, compare_to)  # noqa
-        same = lambda item: item == compare_to  # noqa
-        match = lambda item: isinstance(item, type(compare_to.pattern)) and bool(  # noqa
-            compare_to.search(item)
-        )
+    @configure(use_into=False, use_to_tuple=True, enumerator_without_func=False)
+    def one(self, to_tuple, compare_to=NOT_USED):
         comparison = compare_to
+        if compare_to == NOT_USED:
+            comparison = self._item_equals(True)
         if isinstance(compare_to, type):
-            comparison = is_a
+            comparison = self._item_is_a(compare_to)
         elif isinstance(compare_to, re.Pattern):
-            comparison = match
+            comparison = self._item_matches(compare_to)
         elif not callable(compare_to):
-            comparison = same
+            comparison = self._item_equals(compare_to)
         tail = dropwhile(inverse(comparison), self.__each__())
         if next(tail, NOT_FOUND) == NOT_FOUND:
             return False
         else:
-            return not any(comparison(item) for item in tail)
+            return not any(comparison(*to_tuple(item)) for item in tail)
 
     @configure(use_into=False, use_to_tuple=False)
     def reject(self, predicate):
@@ -299,6 +297,17 @@ class Enumerable(RObject):
         May be overridden by a subclass.
         """
         return (item,)
+
+    def _item_equals(self, compare_to):
+        return lambda item: item == compare_to
+
+    def _item_is_a(self, compare_to):
+        return lambda item: isinstance(item, compare_to)
+
+    def _item_matches(self, compare_to):
+        return lambda item: isinstance(item, type(compare_to.pattern)) and bool(
+            compare_to.search(item)
+        )
 
 
 def inverse(predicate):

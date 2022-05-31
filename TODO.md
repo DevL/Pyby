@@ -81,3 +81,9 @@
 - [ ] [OpenStruct](https://ruby-doc.org/stdlib-3.1.1/libdoc/ostruct/rdoc/OpenStruct.html)
 - [ ] [Set](https://ruby-doc.org/stdlib-3.1.1/libdoc/set/rdoc/Set.html)
 - [ ] [Struct](https://ruby-doc.org/core-3.1.1/Struct.html)
+
+---
+
+# Quirks
+
+- [ ] [Ignore subclasses, return "Array"](https://bugs.ruby-lang.org/issues/6087)

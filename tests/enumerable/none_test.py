@@ -24,6 +24,7 @@ def test_none_with_a_regex_pattern(numbers):
     assert numbers.none(string_pattern)
     numbers.append("the number 69")
     assert not numbers.none(string_pattern)
+
     bytes_pattern = re.compile(r"\d".encode())
     assert numbers.none(bytes_pattern)
     numbers.append(b"binary 420")
