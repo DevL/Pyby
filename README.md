@@ -1,5 +1,7 @@
 # Pyby
 
+**NB:** This repository has been moved to [https://codeberg.org/DevL/pypy](https://codeberg.org/DevL/pyby).
+
 ![PyPI](https://img.shields.io/pypi/v/pyby)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyby)
 ![PyPI - Status](https://img.shields.io/pypi/status/pyby)
