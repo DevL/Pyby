@@ -11,6 +11,8 @@ def enumerable():
 @pytest.mark.parametrize(
     "method_name",
     [
+        "any",
+        "all",
         "each",
         "collect",
         "collect_concat",
@@ -26,6 +28,8 @@ def enumerable():
         "inject",
         "map",
         "member",
+        "none",
+        "one",
         "reduce",
         "reject",
         "select",
